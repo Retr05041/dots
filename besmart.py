@@ -7,6 +7,7 @@ import shutil
 
 BASH_EXEC="/bin/bash"
 CUSTOM_BASH_SOURCE = "files/.mybashrc"
+HOME = "/home/parker/"
 
 # Root checker
 if (getpass.getuser() != "root"):
@@ -22,26 +23,27 @@ print("  =:| Automated Setup Script |:=    ")
 print("")
 
 def source_custom_bash():
-    source = """
-        if [ -f ~/.mybashrc ]; then
-            . ~/.mybashrc
-        fi
-        """
+    source = """if [ -f ~/.mybashrc ]; then
+    . ~/.mybashrc
+fi
+"""
     
-    if not os.path.exists("/root/.mybashrc"):
-        shutil.copy(CUSTOM_BASH_SOURCE, "~")
+    if not os.path.exists(HOME + "/.mybashrc"):
+        shutil.copy(CUSTOM_BASH_SOURCE, HOME)
         print("Copied custom file to home directory.")
     else:
         replace = input("Replace '.mybashrc'? [y/n]: ")
         if replace == "y":
-            shutil.copy(CUSTOM_BASH_SOURCE, "~")
+            shutil.copy(CUSTOM_BASH_SOURCE, HOME)
 
-    with open("/root/.bashrc") as bashrc:
-        if source in bashrc:
+    with open(HOME + "/.bashrc") as bashrc:
+        if source in bashrc.read():
             print("Custom bashrc sourced already.")
-        else:
-            bashrc.write(source)
-            print("Custom bashrc sourced!")
+            bashrc.close()
+            main()
+    with open(HOME + "/.bashrc", "a") as bashrc:
+        bashrc.write(source)
+        bashrc.close()
 
 def main():
     print("")

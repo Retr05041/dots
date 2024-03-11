@@ -38,6 +38,7 @@ alias uu="sudo apt update && sudo apt upgrade -y"
 alias slink="ln -s "
 alias lsall="ls -l --all"
 
+
 # If you end up using lots of swap, everything is slower
 # When you free RAM (by closing apps), the swap remains used and everything may still feel slow.
 # `clearswap` empties the swap back into main memory. It takes a little bit of time
