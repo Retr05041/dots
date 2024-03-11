@@ -1,0 +1,45 @@
+# === Utilities ===
+# Fetches public up
+whatsmyip () {
+    echo -n "External IP: " ; curl ipinfo.io/ip ; echo
+}
+
+# Automagically extracts any archive type.
+extract() {
+    for archive in $*; do
+        if [ -f $archive ] ; then
+            case $archive in
+                *.tar.bz2)   tar xvjf $archive    ;;
+                *.tar.gz)    tar xvzf $archive    ;;
+                *.bz2)       bunzip2 $archive     ;;
+                *.rar)       rar x $archive       ;;
+                *.gz)        gunzip $archive      ;;
+                *.tar)       tar xvf $archive     ;;
+                *.tbz2)      tar xvjf $archive    ;;
+                *.tgz)       tar xvzf $archive    ;;
+                *.zip)       unzip $archive       ;;
+                *.Z)         uncompress $archive  ;;
+                *.7z)        7z x $archive        ;;
+                *)           echo "Don't know how to extract '$archive'..." ;;
+            esac
+        else
+            echo "'$archive' is not a valid file!"
+        fi
+    done
+}
+
+# === Aliases ===
+alias please="sudo"
+alias wip=whatsmyip
+alias extract=extract
+alias h="history | grep "
+alias f="find . | grep "
+alias uu="sudo apt update && sudo apt upgrade -y"
+alias slink="ln -s "
+alias lsall="ls -l --all"
+
+# If you end up using lots of swap, everything is slower
+# When you free RAM (by closing apps), the swap remains used and everything may still feel slow.
+# `clearswap` empties the swap back into main memory. It takes a little bit of time
+# but after that, no more slowdown!
+alias clearswap="sudo swapoff -a;sudo swapon -a"
