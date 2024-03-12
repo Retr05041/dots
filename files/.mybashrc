@@ -1,5 +1,5 @@
 # === Utilities ===
-# Fetches public up
+# Fetches public ip
 whatsmyip () {
     echo -n "External IP: " ; curl ipinfo.io/ip ; echo
 }
