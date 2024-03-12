@@ -45,5 +45,5 @@ alias lsall="ls -l --all"
 # but after that, no more slowdown!
 alias clearswap="sudo swapoff -a;sudo swapon -a"
 
-# === Terminal Configs ===
+# === Shell Configs ===
 PS1 = "[\u:\w]:$ "
