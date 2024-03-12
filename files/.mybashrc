@@ -44,3 +44,6 @@ alias lsall="ls -l --all"
 # `clearswap` empties the swap back into main memory. It takes a little bit of time
 # but after that, no more slowdown!
 alias clearswap="sudo swapoff -a;sudo swapon -a"
+
+# === Terminal Configs ===
+PS1 = "\e[1;33m[\d] \u@\H\e[0m\n\w >"
