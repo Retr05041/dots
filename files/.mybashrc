@@ -46,4 +46,4 @@ alias lsall="ls -l --all"
 alias clearswap="sudo swapoff -a;sudo swapon -a"
 
 # === Terminal Configs ===
-PS1 = "\e[1;33m[\d] \u@\H\e[0m\n\w >"
+PS1 = "[\u:\w]:$ "
