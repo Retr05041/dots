@@ -44,8 +44,7 @@ fi
     with open(HOME + "/.bashrc", "a") as bashrc:
         bashrc.write(source)
         bashrc.close()
-    
-    # 'source ~/.bashrc' to autorefresh bash service
+        main()
 
 def main():
     print("")
