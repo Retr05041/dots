@@ -46,15 +46,21 @@ fi
         bashrc.close()
         main()
 
+def setup_guake():
+    main()
+
 def main():
     print("")
     print("1. Source custom bash file.")
+    print("2. Setup Guake")
     print("9. Exit")
     choice = input("Please enter your choice: ")
 
     match choice:
         case "1":
             source_custom_bash()
+        case "2":
+            setup_guake()
         case "9":
             exit(0)
         case _:
