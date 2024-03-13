@@ -47,6 +47,9 @@ fi
         main()
 
 def setup_guake():
+    subprocess.run("sudo apt add-apt-repository ppa:linuxuprising/guake", shell=True, executable=BASH_EXEC)
+    subprocess.run("sudo apt update", shell=True, executable=BASH_EXEC)
+    subprocess.run("sudo apt install guake", shell=True, executable=BASH_EXEC)
     main()
 
 def main():
