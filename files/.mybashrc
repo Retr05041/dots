@@ -36,9 +36,11 @@ alias h="history | grep "
 alias f="find . | grep "
 alias uu="sudo apt update && sudo apt upgrade -y"
 alias slink="ln -s "
+alias rlink="rm "
 alias lsa="ls -l --all"
 alias ls="ls -l"
 alias py="python3"
+alias cls="clear"
 
 # If you end up using lots of swap, everything is slower
 # When you free RAM (by closing apps), the swap remains used and everything may still feel slow.
