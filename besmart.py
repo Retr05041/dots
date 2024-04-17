@@ -4,6 +4,8 @@ import getpass
 import subprocess
 import os
 import shutil
+from sys import executable
+from time import sleep 
 
 BASH_EXEC="/bin/bash"
 CUSTOM_BASH_SOURCE = "files/.mybashrc"
@@ -52,10 +54,20 @@ def setup_guake():
     subprocess.run("sudo apt install guake", shell=True, executable=BASH_EXEC)
     main()
 
+def setup_go():
+    subprocess.run("curl -LO https://go.dev/dl/go1.22.2.linux-amd64.tar.gz", shell=True, executable=BASH_EXEC)
+    sleep(10)
+    subprocess.run("tar xvzf go1.22.2.linux-amd64.tar.gz", shell=True, executable=BASH_EXEC)
+    subprocess.run("sudo mv go /usr/local", shell=True, executable=BASH_EXEC)
+    subprocess.run("sudo ln -s /usr/local/go/bin/go /usr/local/bin", shell=True, executable=BASH_EXEC)
+    subprocess.run("sudo rm -rf go1.22.2.linux-amd64.tar.gz", shell=True, executable=BASH_EXEC)
+    main()
+
 def main():
     print("")
-    print("1. Source custom bash file.")
-    print("2. Setup Guake")
+    print("1. Source custom bash file")
+    print("2. Install Golang")
+    print("3. Setup Guake")
     print("9. Exit")
     choice = input("Please enter your choice: ")
 
@@ -63,6 +75,8 @@ def main():
         case "1":
             source_custom_bash()
         case "2":
+            setup_go()
+        case "3":
             setup_guake()
         case "9":
             exit(0)
