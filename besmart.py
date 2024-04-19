@@ -48,12 +48,6 @@ fi
         bashrc.close()
         main()
 
-def setup_guake():
-    subprocess.run("sudo apt add-apt-repository ppa:linuxuprising/guake", shell=True, executable=BASH_EXEC)
-    subprocess.run("sudo apt update", shell=True, executable=BASH_EXEC)
-    subprocess.run("sudo apt install guake", shell=True, executable=BASH_EXEC)
-    main()
-
 def setup_go():
     subprocess.run("curl -LO https://go.dev/dl/go1.22.2.linux-amd64.tar.gz", shell=True, executable=BASH_EXEC)
     sleep(10)
@@ -63,11 +57,22 @@ def setup_go():
     subprocess.run("sudo rm -rf go1.22.2.linux-amd64.tar.gz", shell=True, executable=BASH_EXEC)
     main()
 
+def setup_guake():
+    subprocess.run("sudo apt add-apt-repository ppa:linuxuprising/guake", shell=True, executable=BASH_EXEC)
+    subprocess.run("sudo apt update", shell=True, executable=BASH_EXEC)
+    subprocess.run("sudo apt install guake", shell=True, executable=BASH_EXEC)
+    main()
+
+def set_wallpaper():
+    subprocess.run("gsettings set org.gnome.desktop.background picture-uri file://./wallpapers/bladerunner.jpg", shell=True, executable=BASH_EXEC)
+    main()
+
 def main():
     print("")
     print("1. Source custom bash file")
     print("2. Install Golang")
     print("3. Setup Guake")
+    print("4. Set wallpaper")
     print("9. Exit")
     choice = input("Please enter your choice: ")
 
@@ -78,6 +83,8 @@ def main():
             setup_go()
         case "3":
             setup_guake()
+        case "4":
+            set_wallpaper()
         case "9":
             exit(0)
         case _:
