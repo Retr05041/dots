@@ -1,0 +1,11 @@
+[shell]
+program = "/bin/bash"
+
+[window]
+decorations = "None"
+padding = {x=5,y=5}
+opacity = 0.4
+startup_mode = "Fullscreen"
+
+[mouse]
+hide_when_typing = true
