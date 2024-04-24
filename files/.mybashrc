@@ -56,3 +56,4 @@ PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\][\u:\[\033[00m\]\[\033[01;
 if [ -d /usr/local/go ]; then {
   PATH=$PATH:~/opt/bin
 }
+fi
