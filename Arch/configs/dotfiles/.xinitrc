@@ -1,0 +1,4 @@
+#!/bin/bash
+
+
+feh --bg-scale ~/.config/wallpapers/blackwater.png &
