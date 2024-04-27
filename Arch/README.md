@@ -11,6 +11,13 @@ section 3.8 boot loader: pacman -S grub efibootmgr -> grub-install --target=x86_
 
 # Post installation notes
 Start NetworkManager: systemctl enable/start NetworkManager.service -> nmcli connect "{ssid}" password {password}
+
 Install sudo: pacman -S sudo
+
+Setup user: useradd -m -G wheel {name} -> passwd {name}
+
+Install git: pacman -S git
+
+Git clone repo
 
 Use besmart.sh to setup system
