@@ -18,7 +18,7 @@ base_pac_packages () {
     main
 }
 
-base_yay_packages() {
+base_yay_packages () {
     if [ ! command -v yay ]; then
         echo "yay not installed..."
         ./scripts/install_yay.sh
@@ -30,7 +30,7 @@ base_yay_packages() {
    main
 }
 
-base_sys_config() {
+base_sys_config () {
     echo "Setting fonts..."
     if [ ! -d $HOME/.local/share/fonts]; then mkdir -p $HOME/.local/share/fonts fi
     cp ./fonts/HackNerdFont-Regular.ttf $HOME/.local/share/fonts
@@ -60,7 +60,7 @@ set_wallpaper () {
     main
 }
 
-main() {
+main () {
     echo ""
     echo "1. Install base packages."
     echo "2. Base system config"
