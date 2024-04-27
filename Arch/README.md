@@ -10,4 +10,7 @@ section 3.4 network config: remember /etc/host(s) -> 127.0.0.1 localhost -> ::1 
 section 3.8 boot loader: pacman -S grub efibootmgr -> grub-install --target=x86_64-efi --efi-directory=boot --bootloader-id=GRUB -> grub-mkconfig -o /boot/grub/grub.cfg
 
 # Post installation notes
+Start NetworkManager: systemctl enable/start NetworkManager.service -> nmcli connect "{ssid}" password {password}
+Install sudo: pacman -S sudo
+
 Use besmart.sh to setup system
