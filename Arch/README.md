@@ -21,3 +21,4 @@ Install git: pacman -S git
 Git clone repo
 
 Use besmart.sh to setup system
+- Display Manager: -> Remember to set greeter in /etc/lightdm/lightdm.conf -> greeter-session=lightdm-slick-greeter
