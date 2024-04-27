@@ -31,6 +31,12 @@ base_yay_packages() {
 }
 
 base_sys_config() {
+    echo "Setting fonts..."
+    if [ ! -d $HOME/.local/share/fonts]; then mkdir -p $HOME/.local/share/fonts fi
+    cp ./fonts/HackNerdFont-Regular.ttf $HOME/.local/share/fonts
+    fc-cache -fv
+    fc-match "Hack Nerd Font"
+    echo "Fonts set."
     echo "Setting configs..."
     cp -r ./configs/* ~/.config
     echo "Configs set."
@@ -43,9 +49,12 @@ base_sys_config() {
     echo "Setting autostart files..."
     cp ./scripts/autostart_* /etc/X11/xinit/xinit.d/
     echo "Autostart files set."
+    main
 }
 
 set_wallpaper () { 
+    if [ ! -d /usr/share/wallpapers ]; then mkdir /usr/share/wallpapers fi
+    cp -r ../wallpapers /usr/share
     cp ./scripts/autostart_wallpaper.sh /etc/X11/xinit/xinit.d/    
     ./scripts/autostart_wallpaper.sh
     main
