@@ -43,6 +43,7 @@ alias fwr="sed -i 's/\r$//'"
 alias auri="yay -S "
 alias aurr="yay -R "
 alias auru="yay -Sua"
+alias volume="alsamixer"
 
 # If you end up using lots of swap, everything is slower
 # When you free RAM (by closing apps), the swap remains used and everything may still feel slow.
