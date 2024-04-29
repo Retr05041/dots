@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
 DIR="${DIR:-$BLOCK_INSTANCE}"
 DIR="${DIR:-$HOME}"
