@@ -28,9 +28,6 @@ base_sys_config () {
     echo "Sourcing bash..."
     python ./scripts/sourcebash.py $HOME
     echo "Bash sourced."
-    echo "Setting autostart files..."
-    sudo cp ./scripts/autostart_* /etc/X11/xinit/xinitrc.d/
-    echo "Autostart files set."
     echo "Setting wallpaper..."
     set_wallpaper
     echo "Wallpaper set."
@@ -88,7 +85,6 @@ post_configuration () {
 
 set_wallpaper () { 
     sudo cp -r ../wallpapers /usr/share
-    ./scripts/autostart_wallpaper.sh
 }
 
 main () {

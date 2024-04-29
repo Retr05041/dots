@@ -13,7 +13,7 @@ set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 8
+font pango:HackNerdFont 10
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -186,6 +186,35 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+        status_command  i3status -c /home/$USER/.config/i3status/i3status.conf
+        i3bar_command   i3bar --transparency
         position top
+        colors {
+            background $bar-color 
+            separator #191919
+            #                   border              background          text
+            focused_workspace   $focused_ws         $focused_ws         $text
+            inactive_workspace  $inactive-bgcolor   $inactive-bgcolor   $text
+            urgent_workspace    $urgant-bgcolor     $urgant-bgcolor     $text
+        }
 }
+
+# Custom autostarts
+exec_always feh --bg-fill /usr/share/wallpapers/blackwater.png
+exec_always dropbox
+exec_always picom -f
+
+# Color shemes for windows -- {99 = 60%, 4D = 30%, , 80 = 50%, 0D = 5%}
+set $active-bgcolor     #1f4f6b99
+set $inactive-bgcolor   #0000004d
+set $active-text        #ffffff
+set $urgant-bgcolor     #ff0000
+set $indicator          #a8a3c1
+set $inactive-text      #969696
+set $focused_ws         #1f4f6b80
+set $bar-color          #0000000D
+#                       border              background          text            indicator (a line which shows where the next window will be placed)     
+client.focused          $active-bgcolor     $active-bgcolor     $active-text    $indicator
+client.unfocused        $inactive-bgcolor   $inactive-bgcolor   $inactive-text  $inactive-bgcolor
+client.focused_inactive $inactive-bgcolor   $inactive-bgcolor   $inactive-text  $inactive-bgcolor
+client.urgent           $urgant-bgcolor     $urgant-bgcolor     $active-text    $urgant-bgcolor 
