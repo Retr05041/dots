@@ -1,13 +1,9 @@
 #!/bin/bash
 
-clear_screen () {
-  clear
-}
-
 echo "Ensuring all scripts are executable..."
 chmod +x ./scripts/*sh
 
-clear_screen 
+clear
 echo ""
 echo "  =:| Automated Setup Script |:=    "
 echo ""
@@ -41,6 +37,47 @@ base_sys_config () {
     main
 }
 
+post_configuration () {
+    echo ""
+    echo "1. Setup AUR"
+    echo "2. Install Neovim"
+    echo "3. Install Discord"
+    echo "4. Setup Audio"
+    echo "5. Replace ~/.mybshrc"
+    echo "9. Exit"
+    read -p "Please enter your choice: " selection 
+
+    case $selection in
+        "1")
+            ./scripts/setup_yay.sh
+            post_configuration
+            ;;
+        "2")
+            ./scripts/install_neovim.sh
+            post_configuration
+            ;;
+        "3")
+            ./scripts/install_discord.sh
+            post_configuration
+            ;;
+        "4")
+            ./scripts/setup_audio.sh
+            post_configuration
+            ;;
+        "5")
+            cp ./configs/dotfiles/.mybashrc ~/
+            post_configuration
+            ;;
+        "9")
+            exit
+            ;;
+          *)
+            echo "Invalid input."
+            post_configuration
+            ;;
+    esac 
+}
+
 set_wallpaper () { 
     sudo cp -r ../wallpapers /usr/share
     ./scripts/autostart_wallpaper.sh
@@ -55,19 +92,22 @@ main () {
     read -p "Please enter your choice: " selection 
 
     case $selection in
-      "1")
-        base_pac_packages
-        ;;
-      "2")
-        base_sys_config
-        ;;
-      "9")
-        exit
-        ;;
-      *)
-        echo "Invalid input."
-        main
-        ;;
+        "1")
+            base_pac_packages
+            ;;
+        "2")
+            base_sys_config
+            ;;
+        "3")
+            post_configuration
+            ;;
+        "9")
+            exit
+            ;;
+          *)
+            echo "Invalid input."
+            main
+            ;;
     esac 
 }
 main
