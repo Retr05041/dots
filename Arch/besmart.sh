@@ -1,7 +1,8 @@
 #!/bin/bash
 
 echo "Ensuring all scripts are executable..."
-chmod +x ./scripts/*sh
+chmod +x ./scripts/*.sh
+chmod +x ./configs/config/scripts/*.sh
 
 clear
 echo ""
@@ -19,7 +20,7 @@ base_sys_config () {
     cp ./fonts/HackNerdFont-Regular.ttf $HOME/.local/share/fonts
     fc-match "Hack Nerd Font"
     echo "Fonts set."
-    echo "Setting configs..."
+    echo "Setting .config dir..."
     cp -r ./configs/config/* ~/.config
     echo ".config set."
     echo "Setting dotfiles..."
@@ -41,8 +42,7 @@ post_configuration () {
     echo "3. Install Discord"
     echo "4. Setup Audio"
     echo "5. Replace ~/.mybshrc"
-    echo "6. Replace ~/.i3status.conf"
-    echo "7. Replace ~/.config/i3/config"
+    echo "6. Replace custom .config files"
     echo "9. Exit"
     read -p "Please enter your choice: " selection 
 
@@ -68,11 +68,9 @@ post_configuration () {
             post_configuration
             ;;
         "6")
-            cp ./configs/dotfiles/.i3status.conf ~/
+            cp -r ./configs/config/* ~/.config
             post_configuration
             ;;
-        "7")
-            cp -r ./configs/config/i3 ~
         "9")
             exit
             ;;
