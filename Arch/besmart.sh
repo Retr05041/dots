@@ -44,6 +44,8 @@ post_configuration () {
     echo "3. Install Discord"
     echo "4. Setup Audio"
     echo "5. Replace ~/.mybshrc"
+    echo "6. Replace ~/.i3status.conf"
+    echo "7. Replace ~/.config/i3/config"
     echo "9. Exit"
     read -p "Please enter your choice: " selection 
 
@@ -68,6 +70,12 @@ post_configuration () {
             cp ./configs/dotfiles/.mybashrc ~/
             post_configuration
             ;;
+        "6")
+            cp ./configs/dotfiles/.i3status.conf ~/
+            post_configuration
+            ;;
+        "7")
+            cp -r ./configs/config/i3 ~
         "9")
             exit
             ;;
