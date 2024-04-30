@@ -17,7 +17,7 @@ font pango:HackNerdFont 10
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
+# font pango:DejaVu Sans Mono 8
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
@@ -199,11 +199,6 @@ bar {
         }
 }
 
-# Custom autostarts
-exec_always feh --bg-fill /usr/share/wallpapers/blackwater.png
-exec_always dropbox
-exec_always picom -f
-
 # Color shemes for windows -- {99 = 60%, 4D = 30%, , 80 = 50%, 0D = 5%}
 set $active-bgcolor     #1f4f6b99
 set $inactive-bgcolor   #0000004d
@@ -218,3 +213,9 @@ client.focused          $active-bgcolor     $active-bgcolor     $active-text    
 client.unfocused        $inactive-bgcolor   $inactive-bgcolor   $inactive-text  $inactive-bgcolor
 client.focused_inactive $inactive-bgcolor   $inactive-bgcolor   $inactive-text  $inactive-bgcolor
 client.urgent           $urgant-bgcolor     $urgant-bgcolor     $active-text    $urgant-bgcolor 
+
+# Custom autostarts
+exec_always feh --bg-fill /usr/share/wallpapers/blackwater.png
+exec_always dropbox
+exec_always picom -f
+
