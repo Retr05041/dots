@@ -4,6 +4,10 @@ echo "Ensuring all scripts are executable..."
 chmod +x ./scripts/*.sh
 chmod +x ./configs/config/scripts/*.sh
 
+echo "Setting variables..."
+WALLPAPER_PATH="/usr/share/wallpapers"
+FONT_PATH="$HOME/.local/share/fonts"
+
 clear
 echo ""
 echo "  =:| Automated Setup Script |:=    "
@@ -13,18 +17,18 @@ base () {
     echo "--- INSTALLING BASE PACKAGES ---"
     ./scripts/base.sh
     echo "--- DONE ---"
-    if ! [ -d $HOME/.cargo ]; then
-        echo "--- INSTALLING RUST ---"
-        ./scripts/install_rust.sh
+    if ! [ $(command -v yay) ]; then
+        echo "--- INSTALLING YAY ---"
+        ./scripts/setup_yay.sh
         echo "--- DONE ---"
     fi
     main
 }
 
 base_sys_config () {
-    echo "Setting fonts..."
-    if [ ! -d $HOME/.local/share/fonts ]; then mkdir -p $HOME/.local/share/fonts; fi
-    cp ./fonts/HackNerdFont-Regular.ttf $HOME/.local/share/fonts
+    echo "Setting custom fonts..."
+    if [ ! -d $FONT_PATH ]; then mkdir -p $FONT_PATH; fi
+    cp ./fonts/HackNerdFont-Regular.ttf $FONT_PATH
     fc-match "Hack Nerd Font"
     echo "Fonts set."
     echo "Setting .config dir..."
@@ -44,46 +48,43 @@ base_sys_config () {
 
 post_configuration () {
     echo ""
-    echo "1. Setup AUR"
-    echo "2. Install Neovim"
-    echo "3. Install Dropbox"
-    echo "4. Setup Audio"
-    echo "5. Replace ~/.mybshrc"
-    echo "6. Replace custom .config/ files"
-    echo "7. Replace custom .conf files" 
-    echo "8. Replace custom wallpapers/ files"
+    echo "1. Install Neovim"
+    echo "2. Install Dropbox"
+    echo "3. Setup Audio"
+    echo "4. Replace ~/.mybshrc"
+    echo "5. Replace custom .config/ files"
+    echo "6. Replace custom .conf files" 
+    echo "7. Replace custom wallpapers/ files"
     echo "9. Exit"
     read -p "Please enter your choice: " selection 
 
     case $selection in
         "1")
-            ./scripts/setup_yay.sh
-            post_configuration
-            ;;
-        "2")
             ./scripts/install_neovim.sh
             post_configuration
             ;;
-        "3")
+        "2")
             ./scripts/install_dropbox.sh
             post_configuration
             ;;
-        "4")
+        "3")
             ./scripts/setup_audio.sh
             post_configuration
             ;;
-        "5")
+        "4")
             cp ./configs/dotfiles/.mybashrc ~/
             post_configuration
             ;;
-        "6")
+        "5")
             cp -r ./configs/config/* ~/.config
             post_configuration
             ;;
-        "7")
+        "6")
             sudo cp -r ./configs/conf/* /etc/lightdm/
+            post_configuration
             ;;
-        "8")
+        "7")
+            set_wallpaper
             post_configuration
             ;;
         "9")
@@ -97,13 +98,18 @@ post_configuration () {
 }
 
 set_wallpaper () { 
-    sudo cp -r ../wallpapers /usr/share
+    echo "--- DIR CHECK '$WALLPAPER_PATH' ---"
+    if [ -d $WALLPAPER_PATH ]; then rm $WALLPAPER_PATH/*; fi
+    if ! [ -d $WALLPAPER_PATH ]; then mkdir $WALLPAPER_PATH; fi
+    echo "--- MIGRATING IMAGES ---"
+    sudo cp -a ../wallpapers/. $WALLPAPER_PATH
+    echo "--- DONE ---"
 }
 
 main () {
     echo ""
     echo "1. Install needed packages & dependancies."
-    echo "2. Base system config -- Fonts, .config, dotfiles, .mybashrc, autostart scripts, wallpaper"
+    echo "2. Base system config -- Fonts, .config, dotfiles, .mybashrc, wallpaper"
     echo "3. Post configuration"
     echo "9. Exit"
     read -p "Please enter your choice: " selection 
