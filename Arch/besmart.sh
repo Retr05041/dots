@@ -9,8 +9,15 @@ echo ""
 echo "  =:| Automated Setup Script |:=    "
 echo ""
 
-base_pac_packages () {
-    ./scripts/base_pac_packages.sh
+base () {
+    echo "--- INSTALLING BASE PACKAGES ---"
+    ./scripts/base.sh
+    echo "--- DONE ---"
+    if ! [ -d $HOME/.cargo ]; then
+        echo "--- INSTALLING RUST ---"
+        ./scripts/install_rust.sh
+        echo "--- DONE ---"
+    fi
     main
 }
 
@@ -39,10 +46,12 @@ post_configuration () {
     echo ""
     echo "1. Setup AUR"
     echo "2. Install Neovim"
-    echo "3. Install Discord"
+    echo "3. Install Dropbox"
     echo "4. Setup Audio"
     echo "5. Replace ~/.mybshrc"
-    echo "6. Replace custom .config files"
+    echo "6. Replace custom .config/ files"
+    echo "7. Replace custom .conf files" 
+    echo "8. Replace custom wallpapers/ files"
     echo "9. Exit"
     read -p "Please enter your choice: " selection 
 
@@ -56,7 +65,7 @@ post_configuration () {
             post_configuration
             ;;
         "3")
-            ./scripts/install_discord.sh
+            ./scripts/install_dropbox.sh
             post_configuration
             ;;
         "4")
@@ -69,6 +78,12 @@ post_configuration () {
             ;;
         "6")
             cp -r ./configs/config/* ~/.config
+            post_configuration
+            ;;
+        "7")
+            sudo cp -r ./configs/conf/* /etc/lightdm/
+            ;;
+        "8")
             post_configuration
             ;;
         "9")
@@ -87,7 +102,7 @@ set_wallpaper () {
 
 main () {
     echo ""
-    echo "1. Install base packages."
+    echo "1. Install needed packages & dependancies."
     echo "2. Base system config -- Fonts, .config, dotfiles, .mybashrc, autostart scripts, wallpaper"
     echo "3. Post configuration"
     echo "9. Exit"
@@ -95,7 +110,7 @@ main () {
 
     case $selection in
         "1")
-            base_pac_packages
+            base
             ;;
         "2")
             base_sys_config
