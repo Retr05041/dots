@@ -13,17 +13,6 @@ echo ""
 echo "  =:| Automated Setup Script |:=    "
 echo ""
 
-base () {
-    echo "--- INSTALLING BASE PACKAGES ---"
-    ./scripts/base.sh
-    echo "--- DONE ---"
-    if ! [ $(command -v yay) ]; then
-        echo "--- INSTALLING YAY ---"
-        ./scripts/setup_yay.sh
-        echo "--- DONE ---"
-    fi
-    main
-}
 
 base_sys_config () {
     echo "Setting custom fonts..."
@@ -116,7 +105,7 @@ main () {
 
     case $selection in
         "1")
-            base
+            ./scripts/base.sh
             ;;
         "2")
             base_sys_config
