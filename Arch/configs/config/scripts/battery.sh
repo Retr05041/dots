@@ -10,6 +10,6 @@ echo "BAT: $BAT"
 [ ${BAT%?} -ge 75 ] && echo "#11ff00"
 [ ${BAT%?} -ge 50 ] && [ ${BAT%?} -lt 74 ] && echo "#e3e339"
 [ ${BAT%?} -ge 25 ] && [ ${BAT%?} -le 49 ] && echo "#FF8000"
-[ ${BAT%?} -le 24 ] && exit 33
+[ ${BAT%?} -le 24 ] && echo "#a80c0e"
 
 exit 0
