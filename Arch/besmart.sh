@@ -32,6 +32,9 @@ base_sys_config () {
     echo "Setting wallpaper..."
     set_wallpaper
     echo "Wallpaper set."
+    echo "Setting bluetooth service..."
+    ./scripts/setup_bluetooth.sh
+    echo "Blueooth service set."
     main
 }
 

@@ -15,6 +15,9 @@ yay -S lightdm-mini-greeter
 # Sound + Transparency + battery
 pacman -S --needed alsa-utils picom acpi
 
+# Bluetooth
+pacman -S --needed bluez bluez-utils pulseaudio-bluetooth
+
 # Wallpaper
 pacman -S --needed feh
 
