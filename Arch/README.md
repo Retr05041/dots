@@ -26,7 +26,7 @@ Use besmart.sh to setup system
 # TODO
 Fix font issue (Want to use Nerd Hack Font and have Noto be a backup..)
 
-Consolidate configurations and test symlink capability for pulling configs -- Possibly
+Consolidate configurations with hard link
 
 Bring neovim config into the repo, test, and merge with main? (will have to deprecate old neovim config repo...)
 
