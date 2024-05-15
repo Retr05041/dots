@@ -26,7 +26,7 @@ Use besmart.sh to setup system
 # TODO
 Fix font issue (Want to use Nerd Hack Font and have Noto be a backup..)
 
-Consolidate configurations with hard link
+Figure out way to edit configs for hot wallpaper swap (python?)
 
 Bring neovim config into the repo, test, and merge with main? (will have to deprecate old neovim config repo...)
 
@@ -34,3 +34,4 @@ Configure i3blocks with emojis and more functionality (battery state, volume con
 
 Edit besmart.sh to have 1 option for full setup, second for individual setups / configurations post option 1 
 
+tmux?

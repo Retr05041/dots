@@ -13,6 +13,31 @@ echo ""
 echo "  =:| Automated Setup Script |:=    "
 echo ""
 
+set_hardlinks () {
+    if [ -f /etc/lightdm/lightdm.conf ]; then sudo rm /etc/lightdm/lightdm.conf; fi
+    sudo ln configs/conf/lightdm.conf /etc/lightdm/
+    if [ -f /etc/lightdm/lightdm-mini-greeter.conf ]; then sudo rm /etc/lightdm/lightdm-mini-greeter.conf; fi
+    sudo ln configs/conf/lightdm-mini-greeter.conf /etc/lightdm
+
+    for dotFilename in ./configs/dotfiles/.*; do
+        if [[ -f "$HOME/${dotFilename##*/}" ]]; then rm "$HOME/${dotFilename##*/}"; fi
+		echo "$dotFilename hardlink is being set at $HOME"
+        ln $dotFilename $HOME
+    done
+
+    for configFolderPath in ./configs/config/*/; do
+	CONFIGFOLDER=$(basename $configFolderPath)
+        if [[ -d "$HOME/.config/$CONFIGFOLDER" ]]; then rm -r "$HOME/.config/$CONFIGFOLDER"; fi
+	mkdir $HOME/.config/$CONFIGFOLDER
+        for configFilename in $configFolderPath*; do 
+		echo "$configFilename hardlink is being set at $HOME/.config/$CONFIGFOLDER"
+            ln $configFilename $HOME/.config/$CONFIGFOLDER
+        done
+    done
+        
+    main
+}
+
 
 base_sys_config () {
     echo "Setting custom fonts..."
@@ -20,21 +45,15 @@ base_sys_config () {
     cp ./fonts/HackNerdFont-Regular.ttf $FONT_PATH
     fc-match "Hack Nerd Font"
     echo "Fonts set."
-    echo "Setting .config dir..."
-    cp -r ./configs/config/* ~/.config
-    echo ".config set."
-    echo "Setting dotfiles..."
-    cp -a ./configs/dotfiles/. ~/
-    echo "Dotfiles set."
+    echo "Setting hardlinks..."
+    set_hardlinks
+    echo "Hardlinks set."
     echo "Sourcing bash..."
     python ./scripts/sourcebash.py $HOME
     echo "Bash sourced."
     echo "Setting wallpaper..."
     set_wallpaper
     echo "Wallpaper set."
-    echo "Setting bluetooth service..."
-    ./scripts/setup_bluetooth.sh
-    echo "Blueooth service set."
     main
 }
 
@@ -43,9 +62,7 @@ post_configuration () {
     echo "1. Install Neovim"
     echo "2. Install Dropbox"
     echo "3. Setup Audio"
-    echo "4. Replace ~/.mybshrc"
-    echo "5. Replace custom .config/ files"
-    echo "6. Replace custom .conf files" 
+    echo "4. Setup Bluetooth"
     echo "7. Replace custom wallpapers/ files"
     echo "9. Exit"
     read -p "Please enter your choice: " selection 
@@ -64,15 +81,7 @@ post_configuration () {
             post_configuration
             ;;
         "4")
-            cp ./configs/dotfiles/.mybashrc ~/
-            post_configuration
-            ;;
-        "5")
-            cp -r ./configs/config/* ~/.config
-            post_configuration
-            ;;
-        "6")
-            sudo cp -r ./configs/conf/* /etc/lightdm/
+            ./scripts/setup_bluetooth.sh
             post_configuration
             ;;
         "7")
@@ -103,6 +112,7 @@ main () {
     echo "1. Install needed packages & dependancies."
     echo "2. Base system config -- Fonts, .config, dotfiles, .mybashrc, wallpaper"
     echo "3. Post configuration"
+    echo "4. Set Hardlinks"
     echo "9. Exit"
     read -p "Please enter your choice: " selection 
 
@@ -115,6 +125,9 @@ main () {
             ;;
         "3")
             post_configuration
+            ;;
+        "4")
+            set_hardlinks
             ;;
         "9")
             exit

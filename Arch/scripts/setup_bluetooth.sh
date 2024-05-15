@@ -5,7 +5,7 @@ modprobe btusb
 systemctl start bluetooth.service
 systemctl enable bluetooth.service
 
-# Might need to do some automated pairing...
+# Rough Steps
 # 
 # bluetoothctl
 # scan now (find device mac)
