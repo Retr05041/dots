@@ -42,6 +42,7 @@ alias ls="ls -l"
 alias py="python3"
 alias cls="clear"
 alias fwr="sed -i 's/\r$//'"
+alias vi="nvim"
 
 # If you end up using lots of swap, everything is slower
 # When you free RAM (by closing apps), the swap remains used and everything may still feel slow.
