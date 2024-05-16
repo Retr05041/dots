@@ -41,7 +41,7 @@ setup_guake () {
 }
 
 set_wallpaper () { 
-    gsettings set org.gnome.desktop.background picture-uri file://./wallpapers/bladerunner.jpg
+    gsettings set org.gnome.desktop.background picture-uri file://../wallpapers/bladerunner.jpg
     main
 }
 

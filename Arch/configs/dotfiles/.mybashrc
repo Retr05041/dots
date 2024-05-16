@@ -29,19 +29,18 @@ extract() {
 }
 
 # === Aliases ===
-alias plz="sudo"
 alias wip=whatsmyip
 alias extract=extract
 alias h="history | grep "
 alias f="find . | grep "
-alias uu="sudo apt update && sudo apt upgrade -y"
 alias slink="ln -s "
-alias rlink="rm "
 alias lsa="ls -l --all"
 alias ls="ls -l"
-alias py="python3"
 alias cls="clear"
 alias fwr="sed -i 's/\r$//'"
+alias volume="alsamixer"
+alias vi="nvim"
+alias cd="z"
 
 # If you end up using lots of swap, everything is slower
 # When you free RAM (by closing apps), the swap remains used and everything may still feel slow.
@@ -50,10 +49,5 @@ alias fwr="sed -i 's/\r$//'"
 alias clearswap="sudo swapoff -a;sudo swapon -a"
 
 # === Shell Configs ===
+eval "$(zoxide init bash)"
 PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\][\u:\[\033[00m\]\[\033[01;34m\]\W]\[\033[00m\]\$ '
-
-# === Nvim Configs ===
-if [ -d /usr/local/go ]; then {
-  PATH=$PATH:~/opt/bin
-}
-fi
