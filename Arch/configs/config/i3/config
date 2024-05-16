@@ -215,6 +215,6 @@ client.focused_inactive $inactive-bgcolor   $inactive-bgcolor   $inactive-text  
 client.urgent           $urgant-bgcolor     $urgant-bgcolor     $active-text    $urgant-bgcolor 
 
 # Custom autostarts
-exec_always feh --bg-fill /usr/share/wallpapers/blackwater.png
+exec_always feh --bg-fill /usr/share/wallpapers/bladerunner.jpg
 exec_always dropbox
 exec_always picom -f 

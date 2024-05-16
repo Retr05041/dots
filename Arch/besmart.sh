@@ -6,6 +6,7 @@ chmod +x ./configs/config/scripts/*.sh
 
 echo "Setting variables..."
 WALLPAPER_PATH="/usr/share/wallpapers"
+WALLPAPER_NAME="bladerunner.jpg"
 FONT_PATH="$HOME/.local/share/fonts"
 
 clear
@@ -104,6 +105,10 @@ set_wallpaper () {
     if ! [ -d $WALLPAPER_PATH ]; then mkdir $WALLPAPER_PATH; fi
     echo "--- MIGRATING IMAGES ---"
     sudo cp -a ../wallpapers/. $WALLPAPER_PATH
+    echo "--- DONE ---"
+    echo "--- SETTING NEW WALLPAPER VALUE ---"
+    python3 ./scripts/confEditer.py ./configs/conf/lightdm-mini-greeter.conf background-image "\"/usr/share/wallpapers/$WALLPAPER_NAME\""
+    python3 ./scripts/alwaysExecEditer.py ./configs/config/i3/config "feh --bg-fill" /usr/share/wallpapers/$WALLPAPER_NAME
     echo "--- DONE ---"
 }
 

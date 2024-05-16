@@ -1,7 +1,7 @@
 import argparse
 import os
 
-parser = argparse.ArgumentParser(description="Copy cluster specific details from a master inventory to it's own inventory.")
+parser = argparse.ArgumentParser(description="Edit a pre-existing '.conf' file")
 
 parser.add_argument("confPath", help="Path to conf file", type=str)
 parser.add_argument("attribute", help="Specific attribute to edit", type=str)
