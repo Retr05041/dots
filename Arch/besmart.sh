@@ -15,36 +15,53 @@ echo "  =:| Automated Setup Script |:=    "
 echo ""
 
 set_hardlinks () {
+    # light dm
+    echo "--- LIGHTDM LINKS ---"
     if [ -f /etc/lightdm/lightdm.conf ]; then sudo rm /etc/lightdm/lightdm.conf; fi
     sudo ln configs/conf/lightdm.conf /etc/lightdm/
     if [ -f /etc/lightdm/lightdm-mini-greeter.conf ]; then sudo rm /etc/lightdm/lightdm-mini-greeter.conf; fi
     sudo ln configs/conf/lightdm-mini-greeter.conf /etc/lightdm
 
+    # dotfiles
+    echo "--- DOTFILE LINKS ---"
     for dotFilename in ./configs/dotfiles/.*; do
         if [[ -f "$HOME/${dotFilename##*/}" ]]; then rm "$HOME/${dotFilename##*/}"; fi
 		echo "$dotFilename hardlink is being set at $HOME"
         ln $dotFilename $HOME
     done
 
+    # .config files/folders
+    echo "--- .CONFIG LINKS ---"
     for configFolderPath in ./configs/config/*/; do
         CONFIG_FOLDER=$(basename $configFolderPath)
         if [[ -d "$HOME/.config/$CONFIG_FOLDER" ]]; then rm -r "$HOME/.config/$CONFIG_FOLDER"; fi
         mkdir $HOME/.config/$CONFIG_FOLDER
         for configFilename in $configFolderPath*; do 
-            echo "$configFilename hardlink is being set at $HOME/.config/$CONFIG_FOLDER"
             ln $configFilename $HOME/.config/$CONFIG_FOLDER
         done
     done
         
+    # fontconfig
+    echo "--- FONTCONFIG LINK ---"
+    if [ -d $HOME/fontconfig ]; then rm -rf $HOME/fontconfig ; fi
+    mkdir $HOME/fontconfig
+    ln ./configs/fontconfig/conf.d $HOME/fontconfig
+
     main
+}
+
+set_fonts () {
+    echo "--- SETTING CUSTOM FONT ---"
+    if [ ! -d $FONT_PATH ]; then mkdir -p $FONT_PATH; fi
+    cp ./fonts/HackNerdFont-Regular.ttf $FONT_PATH
+    fc-match "Hack Nerd Font"
+    echo "--- DONE ---"
 }
 
 
 base_sys_config () {
     echo "Setting custom fonts..."
-    if [ ! -d $FONT_PATH ]; then mkdir -p $FONT_PATH; fi
-    cp ./fonts/HackNerdFont-Regular.ttf $FONT_PATH
-    fc-match "Hack Nerd Font"
+    set_fonts
     echo "Fonts set."
     echo "Setting hardlinks..."
     set_hardlinks
@@ -115,8 +132,8 @@ set_wallpaper () {
 main () {
     echo ""
     echo "1. Install needed packages & dependancies."
-    echo "2. Base system config -- Fonts, .config, dotfiles, .mybashrc, wallpaper"
-    echo "3. Post configuration"
+    echo "2. Base system config"
+    echo "3. Individual configurations"
     echo "4. Set Hardlinks"
     echo "9. Exit"
     read -p "Please enter your choice: " selection 

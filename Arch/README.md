@@ -24,14 +24,8 @@ Use besmart.sh to setup system
 - Display Manager: -> Remember to set greeter in /etc/lightdm/lightdm.conf -> greeter-session=lightdm-slick-greeter
 
 # TODO
-Fix font issue (Want to use Nerd Hack Font and have Noto be a backup..)
-
-Figure out way to edit configs for hot wallpaper swap (python?)
-
 Bring neovim config into the repo, test, and merge with main? (will have to deprecate old neovim config repo...)
 
 Configure i3blocks with emojis and more functionality (battery state, volume controls?, etc.)
-
-Edit besmart.sh to have 1 option for full setup, second for individual setups / configurations post option 1 
 
 tmux?
