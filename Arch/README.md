@@ -26,12 +26,8 @@ Use besmart.sh to setup system
 # TODO
 Bring neovim config into the repo, test, and merge with main? (will have to deprecate old neovim config repo...)
 
-Configure i3blocks with emojis and more functionality (battery state, volume controls?, etc.)
-
 tmux?
 
 centralize colors...?
 
 widget for volume & bluetooth?
-
-polybar? (pain)
