@@ -210,8 +210,6 @@ exec_always picom -f
 
 # Custom keybinds
 bindsym $mod+x exec /home/$USER/.config/scripts/lock.sh
-bindsym $mod+<F3> exec amixer sset Master 5%+
-bindsym $mod+<F2> exec amixer sset Master 5%-
 
 # Remove title bar
 for_window [class="^.*"] border pixel 0
