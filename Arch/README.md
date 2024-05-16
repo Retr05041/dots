@@ -32,3 +32,5 @@ tmux?
 centralize colors...?
 
 widget for volume & bluetooth?
+
+Drive encryption
