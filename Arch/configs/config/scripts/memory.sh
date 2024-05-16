@@ -38,12 +38,12 @@ END {
 	}
 	# full text
 	if (percent == "true" ) {
-		printf("%.1fG/%.1fG (%.f%%)\n", used, total, pct)
+		printf(" %.1fG/%.1fG (%.f%%)\n", used, total, pct)
 	} else {
-		printf("%.1fG/%.1fG\n", used, total)
+		printf(" %.1fG/%.1fG\n", used, total)
 	}
 	# short text
-	printf("%.f%%\n", pct)
+	printf(" %.f%%\n", pct)
 	# color
 	if (pct > 90) {
 		print("#FF0000")

@@ -1,10 +1,11 @@
 #!/bin/bash
 
+STATE=$(acpi -b | grep -P -o '\w+(?=,)')
 BAT=$(acpi -b | grep -E -o '[0-9][0-9][0-9]?%')
 
 # Full and short texts
-echo "Battery: $BAT"
-echo "BAT: $BAT"
+echo "$STATE $BAT"
+echo "$STATE $BAT"
 
 # Set urgent flag below 5% or use orange below 20%
 [ ${BAT%?} -ge 75 ] && echo "#11ff00"

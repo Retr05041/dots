@@ -22,7 +22,7 @@ pacman -S --needed bluez bluez-utils pulseaudio-bluetooth
 pacman -S --needed feh
 
 # Emoji support
-pacman -S --needed noto-fonts-emoji noto-fonts-extra
+pacman -S --needed noto-fonts-emoji noto-fonts-extra ttf-font-awesome
 
 echo "--- INSTALLING OPTIONAL PACKAGES ---"
 # Optional
