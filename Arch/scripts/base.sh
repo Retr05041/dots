@@ -13,7 +13,7 @@ pacman -S --needed base-devel wezterm dmenu i3-wm polybar lightdm xorg-server
 yay -S lightdm-mini-greeter i3lock-color
 
 # Sound + Transparency + battery
-pacman -S --needed alsa-utils picom acpi
+pacman -S --needed alsa-utils picom acpi spotify-launcher
 
 # Bluetooth
 pacman -S --needed bluez bluez-utils pulseaudio-bluetooth
