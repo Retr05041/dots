@@ -10,7 +10,7 @@ rm -rf ./yay/
 
 echo "--- INSTALLING NEEDED PACKAGES ---"
 pacman -S --needed base-devel wezterm dmenu i3-wm lightdm i3blocks xorg-server 
-yay -S lightdm-mini-greeter
+yay -S lightdm-mini-greeter i3lock-color
 
 # Sound + Transparency + battery
 pacman -S --needed alsa-utils picom acpi

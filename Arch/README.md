@@ -29,3 +29,5 @@ Bring neovim config into the repo, test, and merge with main? (will have to depr
 Configure i3blocks with emojis and more functionality (battery state, volume controls?, etc.)
 
 tmux?
+
+centralize colors...?

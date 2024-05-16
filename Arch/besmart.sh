@@ -26,7 +26,6 @@ set_hardlinks () {
     echo "--- DOTFILE LINKS ---"
     for dotFilename in ./configs/dotfiles/.*; do
         if [[ -f "$HOME/${dotFilename##*/}" ]]; then rm "$HOME/${dotFilename##*/}"; fi
-		echo "$dotFilename hardlink is being set at $HOME"
         ln $dotFilename $HOME
     done
 
@@ -46,6 +45,8 @@ set_hardlinks () {
     if [ -d $HOME/fontconfig ]; then rm -rf $HOME/fontconfig ; fi
     mkdir $HOME/fontconfig
     ln ./configs/fontconfig/conf.d $HOME/fontconfig
+
+    echo "--- DONE ---"
 
     main
 }
