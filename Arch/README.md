@@ -1,4 +1,7 @@
-# Base Arch installation notes
+# Dots Repo
+My main workstation configuration repo
+
+# Arch Install Notes
 section 1.7 connect to internet: use iwctl
 
 section 1.8 disks: list disks -> wipe main disk -> create partitions and specify types -> format using specified type -> temp mount
