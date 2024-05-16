@@ -27,11 +27,11 @@ set_hardlinks () {
     done
 
     for configFolderPath in ./configs/config/*/; do
-	CONFIGFOLDER=$(basename $configFolderPath)
+        CONFIGFOLDER=$(basename $configFolderPath)
         if [[ -d "$HOME/.config/$CONFIGFOLDER" ]]; then rm -r "$HOME/.config/$CONFIGFOLDER"; fi
-	mkdir $HOME/.config/$CONFIGFOLDER
+        mkdir $HOME/.config/$CONFIGFOLDER
         for configFilename in $configFolderPath*; do 
-		echo "$configFilename hardlink is being set at $HOME/.config/$CONFIGFOLDER"
+            echo "$configFilename hardlink is being set at $HOME/.config/$CONFIGFOLDER"
             ln $configFilename $HOME/.config/$CONFIGFOLDER
         done
     done
