@@ -36,7 +36,7 @@ set_hardlinks () {
         if [[ -d "$HOME/.config/$CONFIG_FOLDER" ]]; then rm -r "$HOME/.config/$CONFIG_FOLDER"; fi
         mkdir $HOME/.config/$CONFIG_FOLDER
         for configFilename in $configFolderPath*; do 
-            ln $configFilename $HOME/.config/$CONFIG_FOLDER
+            cp -lr $configFilename $HOME/.config/$CONFIG_FOLDER
         done
     done
         
