@@ -31,3 +31,5 @@ Configure i3blocks with emojis and more functionality (battery state, volume con
 tmux?
 
 centralize colors...?
+
+widget for volume & bluetooth?
