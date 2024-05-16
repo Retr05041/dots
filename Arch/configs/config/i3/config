@@ -227,6 +227,11 @@ exec_always picom -f
 # Custom keybinds
 bindsym $mod+x exec /home/$USER/.config/scripts/lock.sh
 
+# Remove title bar
+for_window [class="^.*"] border pixel 0
+default_border pixel 0
+default_floating_border pixel 0
+
 # default gaps
 gaps inner 10
 gaps outer 10

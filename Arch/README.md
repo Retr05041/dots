@@ -33,3 +33,5 @@ tmux?
 centralize colors...?
 
 widget for volume & bluetooth?
+
+polybar? (pain)
