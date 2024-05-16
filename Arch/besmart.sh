@@ -6,7 +6,7 @@ chmod +x ./configs/config/scripts/*.sh
 
 echo "Setting variables..."
 WALLPAPER_PATH="/usr/share/wallpapers"
-WALLPAPER_NAME="bladerunner.jpg"
+WALLPAPER_NAME="interstellarArt.jpg"
 FONT_PATH="$HOME/.local/share/fonts"
 
 clear

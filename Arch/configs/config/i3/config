@@ -204,7 +204,7 @@ client.urgent           $urgant-bgcolor     $urgant-bgcolor     $active-text    
 
 # Custom autostarts
 exec_always killall -q polybar; polybar
-exec_always feh --bg-fill /usr/share/wallpapers/bladerunner.jpg
+exec_always feh --bg-fill /usr/share/wallpapers/interstellarArt.jpg
 exec_always dropbox
 exec_always picom -f 
 
