@@ -31,8 +31,6 @@ tmux?
 
 centralize colors...?
 
-widget for volume & bluetooth?
-
 Drive encryption
 
 Split up functions in 'besmart' script for singular edits post base
