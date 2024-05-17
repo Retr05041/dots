@@ -38,3 +38,5 @@ Split up functions in 'besmart' script for singular edits post base
 Most recent git repo clones?
 
 personal and work data partitions...
+
+rsync?
