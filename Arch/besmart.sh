@@ -14,36 +14,19 @@ echo ""
 echo "  =:| Automated Setup Script |:=    "
 echo ""
 
-home_dirs () {
-    [[ -d $HOME/Downloads ]] || mkdir $HOME/Downloads
-
-}
-
 set_hardlinks () {
     # light dm
     echo "--- LIGHTDM LINKS ---"
-    if [ -f /etc/lightdm/lightdm.conf ]; then sudo rm /etc/lightdm/lightdm.conf; fi
-    sudo ln configs/conf/lightdm.conf /etc/lightdm/
-    if [ -f /etc/lightdm/lightdm-mini-greeter.conf ]; then sudo rm /etc/lightdm/lightdm-mini-greeter.conf; fi
-    sudo ln configs/conf/lightdm-mini-greeter.conf /etc/lightdm
+    sudo cp -lf configs/conf/lightdm.conf /etc/lightdm/
+    sudo cp -lf configs/conf/lightdm-mini-greeter.conf /etc/lightdm
 
     # dotfiles
     echo "--- DOTFILE LINKS ---"
-    for dotFilename in ./configs/dotfiles/.*; do
-        if [[ -f "$HOME/${dotFilename##*/}" ]]; then rm "$HOME/${dotFilename##*/}"; fi
-        ln $dotFilename $HOME
-    done
+    cp -lfr ./configs/dotfiles/.* $HOME
 
     # .config files/folders
     echo "--- .CONFIG LINKS ---"
-    for configFolderPath in ./configs/config/*/; do
-        CONFIG_FOLDER=$(basename $configFolderPath)
-        if [[ -d "$HOME/.config/$CONFIG_FOLDER" ]]; then rm -r "$HOME/.config/$CONFIG_FOLDER"; fi
-        mkdir $HOME/.config/$CONFIG_FOLDER
-        for configFilename in $configFolderPath*; do 
-            cp -lr $configFilename $HOME/.config/$CONFIG_FOLDER
-        done
-    done
+    cp -lfr ./configs/config/* $HOME/.config/
         
     # fontconfig
     echo "--- FONTCONFIG LINK ---"
@@ -137,10 +120,10 @@ set_wallpaper () {
 
 main () {
     echo ""
-    echo "1. Install needed packages & dependancies."
-    echo "2. Base system config"
-    echo "3. Individual configurations"
-    echo "4. Set Hardlinks"
+    echo "1. Install needed packages & dependancies. ~ FIRST STEP BEFORE DOING ANYTHING BELOW"
+    echo "2. Base system config ~ Automated setup (Sets up everything in one go)"
+    echo "3. Individual configurations Indiviudal setups (For edits or breakages)"
+    echo "4. Set Hardlinks ~ CURRENTLY HERE FOR DEV PURPOSES)"
     echo "9. Exit"
     read -p "Please enter your choice: " selection 
 
