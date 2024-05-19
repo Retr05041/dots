@@ -14,6 +14,11 @@ echo ""
 echo "  =:| Automated Setup Script |:=    "
 echo ""
 
+home_dirs () {
+    [[ -d $HOME/Downloads ]] || mkdir $HOME/Downloads
+
+}
+
 set_hardlinks () {
     # light dm
     echo "--- LIGHTDM LINKS ---"
