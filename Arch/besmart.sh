@@ -21,6 +21,7 @@ GREEN="\e[32m"
 BOLDGREEN="\e[1;32m"
 YELLOW="\e[33m"
 BOLDWHITE="\e[1;97m"
+ITALICGREY="\e[3;90m"
 ENDCOLOR="\e[0m"
 
 set_fonts () { 
@@ -86,7 +87,17 @@ set_wallpaper () {
 
 
 # Flag must exist
-if (( $# == 0 )); then
+if [[ $# == 0 ]]; then
+    echo "./besmart [-h]"
+    exit 1
+fi
+
+# Only 1 flag at a time
+if [[ $# > 1 ]]; then
+    echo "./besmart [-h]"
+    exit 1
+fi
+if [[ ${#1} -ge 3 ]]; then
     echo "./besmart [-h]"
     exit 1
 fi
@@ -108,6 +119,8 @@ ${YELLOW}-c${ENDCOLOR} ~  Sets up core dependancies, programs, and configs
 ${YELLOW}-o${ENDCOLOR} ~  Sets up optional dependancies, programs, and configs
 
 ${YELLOW}-l${ENDCOLOR} ~  (Re)links active configs
+
+${ITALICGREY}Only one flag at at time.${ENDCOLOR}
 "
         exit
         ;;
