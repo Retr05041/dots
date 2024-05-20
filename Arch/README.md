@@ -18,6 +18,7 @@ Start NetworkManager: systemctl enable/start NetworkManager.service -> nmcli con
 Install sudo: pacman -S sudo
 
 Setup user: useradd -m -G wheel {name} -> passwd {name}
+- Go to sudoers file and allow wheel 
 
 Install git: pacman -S git
 

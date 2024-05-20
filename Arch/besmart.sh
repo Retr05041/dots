@@ -1,67 +1,38 @@
 #!/bin/bash
 
-echo "Ensuring all scripts are executable..."
-chmod +x ./scripts/*.sh
-chmod +x ./configs/config/scripts/*.sh
+if ! [[ $(command -v yq) ]]; then
+    echo "yml parser not found - install latest version of yq?"
+    read -p "TOML parser not found - install latest version of 'yq'? [y/n]: " response
+    if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
+        sudo pacman --needed --noconfirm -S go-yq       
+    else
+        echo "Ok, goodbye!"
+        exit 1
+    fi
+fi
 
-echo "Setting variables..."
-WALLPAPER_PATH="/usr/share/wallpapers"
-WALLPAPER_NAME="interstellarArt.jpg"
-FONT_PATH="$HOME/.local/share/fonts"
+# Make all scripts executable
+find ./ -type f -iname "*.sh" -exec chmod +x {} \;
 
-clear
-echo ""
-echo "  =:| Automated Setup Script |:=    "
-echo ""
+# COLORS
+RED="\e[31m"
+BOLDRED="\e[1;31m"
+GREEN="\e[32m"
+BOLDGREEN="\e[1;32m"
+YELLOW="\e[33m"
+BOLDWHITE="\e[1;97m"
+ENDCOLOR="\e[0m"
 
-set_hardlinks () {
-    # light dm
-    echo "--- LIGHTDM LINKS ---"
-    sudo cp -lf configs/conf/lightdm.conf /etc/lightdm/
-    sudo cp -lf configs/conf/lightdm-mini-greeter.conf /etc/lightdm
-
-    # dotfiles
-    echo "--- DOTFILE LINKS ---"
-    cp -lfr ./configs/dotfiles/.* $HOME
-
-    # .config files/folders
-    echo "--- .CONFIG LINKS ---"
-    cp -lfr ./configs/config/* $HOME/.config/
-        
-    # fontconfig
-    echo "--- FONTCONFIG LINK ---"
-    if [ -d $HOME/fontconfig ]; then rm -rf $HOME/fontconfig ; fi
-    mkdir $HOME/fontconfig
-    ln ./configs/fontconfig/conf.d $HOME/fontconfig
-
-    echo "--- DONE ---"
-
-    main
-}
-
-set_fonts () {
-    echo "--- SETTING CUSTOM FONT ---"
+set_fonts () { 
+    echo "- SETTING CUSTOM FONT -"
     if [ ! -d $FONT_PATH ]; then mkdir -p $FONT_PATH; fi
-    cp ./fonts/HackNerdFont-Regular.ttf $FONT_PATH
+    cp ./fonts/HackNerdFont-Regular.ttf $(yq '.Base.fontPath' settings.yml)
     fc-match "Hack Nerd Font"
-    echo "--- DONE ---"
 }
 
-
-base_sys_config () {
-    echo "Setting custom fonts..."
-    set_fonts
-    echo "Fonts set."
-    echo "Setting hardlinks..."
-    set_hardlinks
-    echo "Hardlinks set."
-    echo "Sourcing bash..."
-    python ./scripts/sourcebash.py $HOME
-    echo "Bash sourced."
-    echo "Setting wallpaper..."
-    set_wallpaper
-    echo "Wallpaper set."
-    main
+source_bash () {
+    echo "- SOURCING BASH -"
+    python ./scripts/utils/sourcebash.py $HOME
 }
 
 post_configuration () {
@@ -106,48 +77,76 @@ post_configuration () {
 }
 
 set_wallpaper () { 
-    echo "--- DIR CHECK '$WALLPAPER_PATH' ---"
-    if [ -d $WALLPAPER_PATH ]; then rm $WALLPAPER_PATH/*; fi
-    if ! [ -d $WALLPAPER_PATH ]; then mkdir $WALLPAPER_PATH; fi
-    echo "--- MIGRATING IMAGES ---"
-    sudo cp -a ../wallpapers/. $WALLPAPER_PATH
-    echo "--- DONE ---"
-    echo "--- SETTING NEW WALLPAPER VALUE ---"
-    python3 ./scripts/confEditer.py ./configs/conf/lightdm-mini-greeter.conf background-image "\"/usr/share/wallpapers/$WALLPAPER_NAME\""
-    python3 ./scripts/alwaysExecEditer.py ./configs/config/i3/config "feh --bg-fill" /usr/share/wallpapers/$WALLPAPER_NAME
-    echo "--- DONE ---"
+    echo "- MIGRATING IMAGES -"
+    sudo cp -a ../wallpapers/. $(yq '.Base.wallpaperPath' settings.yml)
+    echo "- SETTING NEW WALLPAPER VALUE -"
+    python3 ./scripts/utils/confEditer.py ./configs/core/conf/lightdm-mini-greeter.conf background-image "\"/usr/share/wallpapers/$(yq '.Base.wallpaperName' settings.yml)\""
+    python3 ./scripts/utils/alwaysExecEditer.py ./configs/core/config/i3/config "feh --bg-fill" /usr/share/wallpapers/$(yq '.Base.wallpaperName' settings.yml)
 }
 
-main () {
-    echo ""
-    echo "1. Install needed packages & dependancies. ~ FIRST STEP BEFORE DOING ANYTHING BELOW"
-    echo "2. Base system config ~ Automated setup (Sets up everything in one go)"
-    echo "3. Individual configurations Indiviudal setups (For edits or breakages)"
-    echo "4. Set Hardlinks ~ CURRENTLY HERE FOR DEV PURPOSES)"
-    echo "9. Exit"
-    read -p "Please enter your choice: " selection 
 
-    case $selection in
-        "1")
-            ./scripts/base.sh
-            ;;
-        "2")
-            base_sys_config
-            ;;
-        "3")
-            post_configuration
-            ;;
-        "4")
-            set_hardlinks
-            ;;
-        "9")
-            exit
-            ;;
-          *)
-            echo "Invalid input."
-            main
-            ;;
-    esac 
-}
-main
+# Flag must exist
+if (( $# == 0 )); then
+    echo "./besmart [-h]"
+    exit 1
+fi
 
+while getopts "hac" opt; do
+   case $opt in
+    h)
+        echo -e "
+
+${BOLDGREEN}=:| Automated Setup Script |:=${ENDCOLOR}    
+
+
+${YELLOW}-h${ENDCOLOR} ~  Displays this help message
+
+${YELLOW}-a${ENDCOLOR} ~  Sets up everything in one go: Core & Optional Depenancies, Programs, and Configs
+
+${YELLOW}-c${ENDCOLOR} ~  Sets up core dependancies, programs, and configs
+
+${YELLOW}-o${ENDCOLOR} ~  Sets up optional dependancies, programs, and configs
+
+${YELLOW}-l${ENDCOLOR} ~  (Re)links active configs
+"
+        exit
+        ;;
+    a)
+        echo -e "${YELLOW}--- INSTALLING CORE PACKAGES ---${ENDCOLOR}"
+        sudo ./scripts/core/core.sh
+        ./scripts/core/setup_audio.sh
+        sudo ./scripts/core/setup_bluetooth.sh
+        echo -e "${GREEN}--- DONE ---${ENDCOLOR}"
+        echo -e "${YELLOW}--- LINKING CORE CONFIGS ---${ENDCOLOR}"
+        echo "-- LIGHTDM LINKS --"
+        sudo cp -lf configs/core/conf/lightdm.conf /etc/lightdm/
+        sudo cp -lf configs/core/conf/lightdm-mini-greeter.conf /etc/lightdm
+
+        # dotfiles
+        echo "-- DOTFILE LINKS --"
+        cp -lfr ./configs/core/dotfiles/.* $HOME
+
+        # .config files/folders
+        echo "-- .CONFIG LINKS --"
+        cp -lfr ./configs/core/config/* $HOME/.config/
+            
+        # fontconfig
+        echo "-- FONTCONFIG LINK --"
+        set_fonts
+        cp -lfr ./configs/core/fontconfig $HOME
+
+        echo -e "${GREEN}--- DONE ---${ENDCOLOR}"
+        echo -e "${YELLOW}--- SOURCING BASH ---${ENDCOLOR}"
+        source_bash
+        echo -e "${GREEN}--- DONE ---${ENDCOLOR}"
+        echo -e "${YELLOW}--- SETTING WALLPAPER ---${ENDCOLOR}"
+        set_wallpaper
+        echo -e "${GREEN}--- DONE ---${ENDCOLOR}"
+        exit
+        ;;
+    \?)
+        echo "./besmart [-h]"
+        exit
+        ;;
+   esac 
+done

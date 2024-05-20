@@ -1,0 +1,4 @@
+--noconfirm
+echo "--- INSTALLING OPTIONAL PACKAGES ---"
+# Optional
+pacman -S --needed firefox keepassxc zoxide discord

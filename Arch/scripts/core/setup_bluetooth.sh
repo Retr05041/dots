@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "-- ENABLING BLUETOOTH --"
 modprobe btusb
 
 systemctl start bluetooth.service
