@@ -5,4 +5,4 @@ Base:
 Core:
   core: true
 Optional:
-  optional: false
+  optional: true
