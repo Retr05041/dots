@@ -1,5 +1,8 @@
 #!/bin/bash
 
+source scripts/utils/bashlib.sh
+colors
+
 if ! [[ $(command -v yq) ]]; then
     echo "yml parser not found - install latest version of yq?"
     read -p "TOML parser not found - install latest version of 'yq'? [y/n]: " response
@@ -13,16 +16,6 @@ fi
 
 # Make all scripts executable
 find ./ -type f -iname "*.sh" -exec chmod +x {} \;
-
-# COLORS
-RED="\e[31m"
-BOLDRED="\e[1;31m"
-GREEN="\e[32m"
-BOLDGREEN="\e[1;32m"
-YELLOW="\e[33m"
-BOLDWHITE="\e[1;97m"
-ITALICGREY="\e[3;90m"
-ENDCOLOR="\e[0m"
 
 set_fonts () { 
     echo "- SETTING CUSTOM FONT -"
@@ -55,12 +48,12 @@ explicit_neovim () {
 }
 
 core () {
-    echo -e "${YELLOW}--- INSTALLING CORE PACKAGES ---${ENDCOLOR}"
+    echo_color YELLOW "--- INSTALLING CORE PACKAGES ---"
     sudo ./scripts/core/core.sh
     ./scripts/core/setup_audio.sh
     sudo ./scripts/core/setup_bluetooth.sh
-    echo -e "${GREEN}--- DONE ---${ENDCOLOR}"
-    echo -e "${YELLOW}--- LINKING CORE CONFIGS ---${ENDCOLOR}"
+    echo_color GREEN "--- DONE ---"
+    echo_color YELLOW "--- LINKING CORE CONFIGS ---"
     echo "-- LIGHTDM LINKS --"
     sudo cp -lf configs/core/conf/lightdm.conf /etc/lightdm/
     sudo cp -lf configs/core/conf/lightdm-mini-greeter.conf /etc/lightdm
@@ -78,121 +71,112 @@ core () {
     set_fonts
     cp -lfr ./configs/core/fontconfig $HOME
 
-    echo -e "${GREEN}--- DONE ---${ENDCOLOR}"
-    echo -e "${YELLOW}--- SOURCING BASH ---${ENDCOLOR}"
+    echo_color GREEN "--- DONE ---"
+    echo_color YELLOW "--- SOURCING BASH ---"
     source_bash
-    echo -e "${GREEN}--- DONE ---${ENDCOLOR}"
-    echo -e "${YELLOW}--- SETTING WALLPAPER ---${ENDCOLOR}"
+    echo_color GREEN "--- DONE ---"
+    echo_color YELLOW "--- SETTING WALLPAPER ---"
     set_wallpaper
-    echo -e "${GREEN}--- DONE ---${ENDCOLOR}"
+    echo_color GREEN "--- DONE ---"
 
     yq -i '.Core.core=true' settings.yml 
-    exit
 }
 
 optional () {
-    echo -e "${YELLOW}--- INSTALLING OPTIONAL PACKAGES ---${ENDCOLOR}"
+    echo_color YELLOW "--- INSTALLING OPTIONAL PACKAGES ---"
     sudo ./scripts/optional/optional.sh
-    echo -e "${GREEN}--- DONE ---${ENDCOLOR}"
-    echo -e "${YELLOW}--- LINKING OPTIONAL CONFIGS ---${ENDCOLOR}"
+    echo_color GREEN "--- DONE ---"
+    echo_color YELLOW "--- LINKING OPTIONAL CONFIGS ---"
 
     # .config files/folders
     echo "-- .CONFIG LINKS --"
     cp -lfr ./configs/core/config/* $HOME/.config/
-    echo -e "${GREEN}--- DONE ---${ENDCOLOR}"
+    echo_color GREEN "--- DONE ---"
         
     yq -i '.Optional.optional=true' settings.yml 
-    exit
 }
 
 link () {
     if [[ $(yq '.Core.core' settings.yml) ]]; then
-        echo -e "${YELLOW}--- LINKING CORE ---${ENDCOLOR}"
-        echo -e "${GREEN}--- DONE ---${ENDCOLOR}"
+        echo_color YELLOW "--- LINKING CORE ---"
+        echo_color GREEN "--- DONE ---"
     fi
 
     if [[ $(yq '.Optional.optional' settings.yml) ]]; then
-        echo -e "${YELLOW}--- LINKING OPTIONAL ---${ENDCOLOR}"
-        echo -e "${GREEN}--- DONE ---${ENDCOLOR}"
+        echo_color YELLOW "--- LINKING OPTIONAL ---"
+        echo_color GREEN "--- DONE ---"
     fi
-    
-    exit
 }
 
-
-# Flag must exist
 if [[ $# == 0 ]]; then
-    echo "./besmart [-h]"
-    exit 1
+    $0 -h
 fi
 
-# Only 1 flag at a time
-if [[ $# > 1 ]]; then
-    echo "./besmart [-h]"
-    exit 1
-fi
-if [[ ${#1} -ge 3 ]]; then
-    echo "./besmart [-h]"
-    exit 1
-fi
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+    -h | --help)
+        echo
+        echo_color BOLDGREEN "=:| Automated Setup Script |:="
+        echo_color ITALICGREY "Only one flag at at time."
+        echo
+        echo
+echo_color YELLOW "-h, --help"; 
+echo "  Displays this help message"
+echo
+echo "---"
+echo
+echo_color YELLOW "-a, --all"; 
+echo " Sets up everything in one go: Core & Optional Depenancies, Programs, and Configs"
+echo
+echo_color YELLOW "-c, --core"; 
+echo " Sets up core dependancies, programs, and configs"
+echo
+echo_color YELLOW "-o, --optional"; 
+echo " Sets up optional dependancies, programs, and configs"
+echo
+echo_color YELLOW "-l, --link"; 
+echo "  (Re)links all core and or optional configs"
+echo
+echo "---"
+echo
+echo_color YELLOW "-w, --wallpaper FILENAME"; 
+echo "  Set wallpaper to {filename} (be sure to include file extension)"
+echo
+echo_color YELLOW "-n, --neovim [all|install|link]"  
+echo "  all:     Install Neovim and (Re)link config."
+echo "  install: Install Neovim"
+echo "  link:    (Re)link config"
 
-while getopts "hacolw:n:" opt; do
-   case $opt in
-    h)
-        echo -e "
-
-${BOLDGREEN}=:| Automated Setup Script |:=${ENDCOLOR}    
-${ITALICGREY}Only one flag at at time.${ENDCOLOR}
-
-
-${YELLOW}-h${ENDCOLOR} ~  Displays this help message
-
----
-
-${YELLOW}-a${ENDCOLOR} ~  Sets up everything in one go: Core & Optional Depenancies, Programs, and Configs
-
-${YELLOW}-c${ENDCOLOR} ~  Sets up core dependancies, programs, and configs
-
-${YELLOW}-o${ENDCOLOR} ~  Sets up optional dependancies, programs, and configs
-
-${YELLOW}-l${ENDCOLOR} ~  (Re)links all core and or optional configs
-
----
-
-${YELLOW}-w {filename}${ENDCOLOR} ~ Set wallpaper to {filename} (be sure to include file extension)
-
-${YELLOW}-n [install|link]${ENDCOLOR}  
-    install: Install Neovim
-    link:    (Re)link Neovim config
-    ${ITALICGREY}If empty, both will run.${ENDCOLOR}
-"
-        exit
+shift 1
         ;;
-    a)
+    -a | --all)
         core
         optional
+        shift 1
         ;;
-    c)
+    -c | --core)
         core
+        shift 1
         ;;
-    o)
+    -o | --optional)
         optional
+        shift 1
         ;;
-    l)
+    -l | --link)
         link
+        shift 1
         ;;
-    w)
-        change_wallpaper $OPTARG
+    -w | --wallpaper)
+        change_wallpaper "$2"
+        shift 2
         ;;
-    n)
-        explicit_neovim $OPTARG
+    -n | --neovim)
+        explicit_neovim "$2"
+        shift 2
         ;;
-    :)
-        echo "Flag $opt requires an argument"
-        ;;
-    \?)
-        echo "Invalid flag ~ ./besmart [-h]"
-        exit
+    *)
+        echo "Unknown flag: $1"
+        echo "$(basename $0) [-h | --help]"
         ;;
    esac 
 done
