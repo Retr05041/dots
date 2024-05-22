@@ -1,5 +1,5 @@
 # Dots Repo
-My main workstation configuration repo
+*My main workstation configuration repo*
 
 # Arch Install Notes
 section 1.7 connect to internet: use iwctl
@@ -28,16 +28,19 @@ Use besmart.sh to setup system
 - Display Manager: -> Remember to set greeter in /etc/lightdm/lightdm.conf -> greeter-session=lightdm-mini-greeter
 
 # TODO
-tmux?
+ethernet indicator
+- Like wifi
 
-centralize colors...?
+tmux
+- Watch youtube video before screwing with this too much
+
+centralize colors?
+- Will probably need a script for resetting color values in files if I do this...
+
 
 Drive encryption
-
-Split up functions in 'besmart' script for singular edits post base
+- personal and work data partitions...
+- rsync?
 
 Most recent git repo clones?
-
-personal and work data partitions...
-
-rsync?
+- Will probably want to do this in a cool way
