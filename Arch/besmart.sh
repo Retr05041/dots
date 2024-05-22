@@ -114,69 +114,69 @@ fi
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
-    -h | --help)
-        echo
-        echo_color BOLDGREEN "=:| Automated Setup Script |:="
-        echo_color ITALICGREY "Only one flag at at time."
-        echo
-        echo
-echo_color YELLOW "-h, --help"; 
-echo "  Displays this help message"
-echo
-echo "---"
-echo
-echo_color YELLOW "-a, --all"; 
-echo " Sets up everything in one go: Core & Optional Depenancies, Programs, and Configs"
-echo
-echo_color YELLOW "-c, --core"; 
-echo " Sets up core dependancies, programs, and configs"
-echo
-echo_color YELLOW "-o, --optional"; 
-echo " Sets up optional dependancies, programs, and configs"
-echo
-echo_color YELLOW "-l, --link"; 
-echo "  (Re)links all core and or optional configs"
-echo
-echo "---"
-echo
-echo_color YELLOW "-w, --wallpaper FILENAME"; 
-echo "  Set wallpaper to {filename} (be sure to include file extension)"
-echo
-echo_color YELLOW "-n, --neovim [all|install|link]"  
-echo "  all:     Install Neovim and (Re)link config."
-echo "  install: Install Neovim"
-echo "  link:    (Re)link config"
+        -h | --help)
+            echo
+            echo_color BOLDGREEN "=:| Automated Setup Script |:="
+            echo_color ITALICGREY "Only one flag at at time."
+            echo
+            echo
+            echo_color YELLOW "-h, --help"; 
+            echo "  Displays this help message"
+            echo
+            echo "---"
+            echo
+            echo_color YELLOW "-a, --all"; 
+            echo " Sets up everything in one go: Core & Optional Depenancies, Programs, and Configs"
+            echo
+            echo_color YELLOW "-c, --core"; 
+            echo " Sets up core dependancies, programs, and configs"
+            echo
+            echo_color YELLOW "-o, --optional"; 
+            echo " Sets up optional dependancies, programs, and configs"
+            echo
+            echo_color YELLOW "-l, --link"; 
+            echo "  (Re)links all core and or optional configs"
+            echo
+            echo "---"
+            echo
+            echo_color YELLOW "-w, --wallpaper FILENAME"; 
+            echo "  Set wallpaper to {filename} (be sure to include file extension)"
+            echo
+            echo_color YELLOW "-n, --neovim [all|install|link]"  
+            echo "  all:     Install Neovim and (Re)link config."
+            echo "  install: Install Neovim"
+            echo "  link:    (Re)link config"
 
-shift 1
-        ;;
-    -a | --all)
-        core
-        optional
-        shift 1
-        ;;
-    -c | --core)
-        core
-        shift 1
-        ;;
-    -o | --optional)
-        optional
-        shift 1
-        ;;
-    -l | --link)
-        link
-        shift 1
-        ;;
-    -w | --wallpaper)
-        change_wallpaper "$2"
-        shift 2
-        ;;
-    -n | --neovim)
-        explicit_neovim "$2"
-        shift 2
-        ;;
-    *)
-        echo "Unknown flag: $1"
-        echo "$(basename $0) [-h | --help]"
-        ;;
-   esac 
+            shift 1
+            ;;
+        -a | --all)
+            core
+            optional
+            shift 1
+            ;;
+        -c | --core)
+            core
+            shift 1
+            ;;
+        -o | --optional)
+            optional
+            shift 1
+            ;;
+        -l | --link)
+            link
+            shift 1
+            ;;
+        -w | --wallpaper)
+            change_wallpaper "$2"
+            shift 2
+            ;;
+        -n | --neovim)
+            explicit_neovim "$2"
+            shift 2
+            ;;
+        *)
+            echo "Unknown flag: $1"
+            echo "$(basename $0) [-h | --help]"
+            ;;
+    esac 
 done
