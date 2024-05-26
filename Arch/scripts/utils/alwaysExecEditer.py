@@ -12,8 +12,6 @@ def main():
     if not os.path.lexists(args.autoPath):
         print("Invalid path:", args.autoPath)
         return
-    else:
-        print("Path validated.")
 
     autoLines = []
     with open(args.autoPath, "r") as autoFile:

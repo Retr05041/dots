@@ -12,8 +12,6 @@ def main():
     if not os.path.lexists(args.confPath):
         print("Invalid path:", args.confPath)
         return
-    else:
-        print("Path validated.")
 
     confLines = []
     with open(args.confPath, "r") as confFile:

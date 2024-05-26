@@ -28,15 +28,14 @@ Use besmart.sh to setup system
 - Display Manager: -> Remember to set greeter in /etc/lightdm/lightdm.conf -> greeter-session=lightdm-mini-greeter
 
 # TODO
-ethernet indicator
-- Like wifi
+besmart
+- cleanup whole script for ease of development and use
 
 tmux
 - Watch youtube video before screwing with this too much
 
 centralize colors?
 - Will probably need a script for resetting color values in files if I do this...
-
 
 Drive encryption
 - personal and work data partitions...

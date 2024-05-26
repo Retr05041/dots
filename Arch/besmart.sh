@@ -18,9 +18,11 @@ fi
 find ./ -type f -iname "*.sh" -exec chmod +x {} \;
 
 set_fonts () { 
+    FONTPATH=$(yq '.Base.fontPath' settings.yml)
     echo "- SETTING CUSTOM FONT -"
-    if [ ! -d $FONT_PATH ]; then mkdir -p $FONT_PATH; fi
-    cp ./fonts/HackNerdFont-Regular.ttf $(yq '.Base.fontPath' settings.yml)
+    if [ -d $FONTPATH ]; then rm -r $FONTPATH; fi
+    if [ ! -d $FONTPATH ]; then mkdir -p $FONTPATH; fi
+    cp ./fonts/HackNerdFont-Regular.ttf $FONTPATH
     fc-match "Hack Nerd Font"
 }
 
@@ -38,13 +40,26 @@ set_wallpaper () {
 }
 
 change_wallpaper () {
-    echo $1
-    exit
+    echo_color YELLOW "--- SETTINGS WALLPAPER ---"
+    echo -n "Wallpaper exists: "
+    if [ -f ../wallpapers/$1 ]; then echo_color GREEN ""; else echo_color RED ""; exit; fi
+    yq -i ".Base.wallpaperName=\"$1\"" settings.yml
+    set_wallpaper
+    echo_color GREEN "--- DONE ---"
 }
 
 explicit_neovim () {
-    echo $1
-    exit
+    case "$1" in
+        all)
+            echo_color GREEN $1
+            ;;
+        install)
+            echo_color YELLOW $1
+            ;;
+        link)
+            echo_color RED $1
+            ;;
+    esac
 }
 
 core () {
@@ -54,6 +69,19 @@ core () {
     sudo ./scripts/core/setup_bluetooth.sh
     echo_color GREEN "--- DONE ---"
     echo_color YELLOW "--- LINKING CORE CONFIGS ---"
+    link_core
+    echo_color GREEN "--- DONE ---"
+    echo_color YELLOW "--- SOURCING BASH ---"
+    source_bash
+    echo_color GREEN "--- DONE ---"
+    echo_color YELLOW "--- SETTING WALLPAPER ---"
+    set_wallpaper
+    echo_color GREEN "--- DONE ---"
+
+    yq -i '.Core.core=true' settings.yml 
+}
+
+link_core () {
     echo "-- LIGHTDM LINKS --"
     sudo cp -lf configs/core/conf/lightdm.conf /etc/lightdm/
     sudo cp -lf configs/core/conf/lightdm-mini-greeter.conf /etc/lightdm
@@ -70,16 +98,6 @@ core () {
     echo "-- FONTCONFIG LINK --"
     set_fonts
     cp -lfr ./configs/core/fontconfig $HOME
-
-    echo_color GREEN "--- DONE ---"
-    echo_color YELLOW "--- SOURCING BASH ---"
-    source_bash
-    echo_color GREEN "--- DONE ---"
-    echo_color YELLOW "--- SETTING WALLPAPER ---"
-    set_wallpaper
-    echo_color GREEN "--- DONE ---"
-
-    yq -i '.Core.core=true' settings.yml 
 }
 
 optional () {
@@ -88,22 +106,27 @@ optional () {
     echo_color GREEN "--- DONE ---"
     echo_color YELLOW "--- LINKING OPTIONAL CONFIGS ---"
 
-    # .config files/folders
+    link_optional
+        
+    yq -i '.Optional.optional=true' settings.yml 
+}
+
+link_optional () {
     echo "-- .CONFIG LINKS --"
     cp -lfr ./configs/core/config/* $HOME/.config/
     echo_color GREEN "--- DONE ---"
-        
-    yq -i '.Optional.optional=true' settings.yml 
 }
 
 link () {
     if [[ $(yq '.Core.core' settings.yml) ]]; then
         echo_color YELLOW "--- LINKING CORE ---"
+        link_core
         echo_color GREEN "--- DONE ---"
     fi
 
     if [[ $(yq '.Optional.optional' settings.yml) ]]; then
         echo_color YELLOW "--- LINKING OPTIONAL ---"
+        link_optional
         echo_color GREEN "--- DONE ---"
     fi
 }

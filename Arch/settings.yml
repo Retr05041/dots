@@ -1,7 +1,7 @@
 Base:
   wallpaperPath: /usr/share/wallpapers
   wallpaperName: interstellarArt.jpg
-  fontPath: $HOME/.local/share/fonts/
+  fontPath: /home/parker/.local/share/fonts/
 Core:
   core: true
 Optional:
