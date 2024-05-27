@@ -28,7 +28,7 @@ if [[ -z "$TMUX" ]]; then
     if [[ $? != 0 ]]; then
         tmux new-session -s main
     fi
-    tmux switch -t main
+    tmux attach -t main
 fi
 
 # === Utility Functions ===
