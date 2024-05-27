@@ -1,7 +1,7 @@
 import sys
 
-SOURCE = """if [ -f ~/.mybashrc ]; then
-. ~/.mybashrc
+SOURCE = """if [ -f ~/.config/.mybashrc ]; then
+    . ~/.config/.mybashrc
 fi
 """
 

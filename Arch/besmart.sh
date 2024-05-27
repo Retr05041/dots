@@ -83,21 +83,13 @@ core () {
 
 link_core () {
     echo "-- LIGHTDM LINKS --"
-    sudo cp -lf configs/core/conf/lightdm.conf /etc/lightdm/
-    sudo cp -lf configs/core/conf/lightdm-mini-greeter.conf /etc/lightdm
-
-    # dotfiles
-    echo "-- DOTFILE LINKS --"
-    cp -lfr ./configs/core/dotfiles/.* $HOME
+    sudo cp -lf configs/special/lightdm.conf /etc/lightdm/
+    sudo cp -lf configs/special/lightdm-mini-greeter.conf /etc/lightdm
 
     # .config files/folders
-    echo "-- .CONFIG LINKS --"
-    cp -lfr ./configs/core/config/* $HOME/.config/
-        
-    # fontconfig
-    echo "-- FONTCONFIG LINK --"
-    set_fonts
-    cp -lfr ./configs/core/fontconfig $HOME
+    echo "-- DOTFILE LINKS --"
+    cp -lfr ./configs/core/* $HOME/.config/
+    cp -lfr ./configs/core/.* $HOME/.config/
 }
 
 optional () {
@@ -112,8 +104,8 @@ optional () {
 }
 
 link_optional () {
-    echo "-- .CONFIG LINKS --"
-    cp -lfr ./configs/optional/config/* $HOME/.config/
+    echo "-- DOTEFILE LINKS --"
+    cp -lfr ./configs/optional/* $HOME/.config/
 }
 
 link () {
