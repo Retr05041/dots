@@ -28,12 +28,6 @@ Use besmart.sh to setup system
 - Display Manager: -> Remember to set greeter in /etc/lightdm/lightdm.conf -> greeter-session=lightdm-mini-greeter
 
 # TODO
-besmart
-- cleanup whole script for ease of development and use
-
-tmux
-- Start configuring
-
 rclone
 - Google drive
 
