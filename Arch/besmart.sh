@@ -113,8 +113,7 @@ optional () {
 
 link_optional () {
     echo "-- .CONFIG LINKS --"
-    cp -lfr ./configs/core/config/* $HOME/.config/
-    echo_color GREEN "--- DONE ---"
+    cp -lfr ./configs/optional/config/* $HOME/.config/
 }
 
 link () {

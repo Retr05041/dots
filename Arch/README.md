@@ -32,7 +32,7 @@ besmart
 - cleanup whole script for ease of development and use
 
 tmux
-- Watch youtube video before screwing with this too much
+- Start configuring
 
 rclone
 - Google drive
