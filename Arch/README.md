@@ -34,6 +34,12 @@ besmart
 tmux
 - Watch youtube video before screwing with this too much
 
+rclone
+- Google drive
+
+list user installed programs? versions?
+- Rust, neovim, tmux, etc. etc.
+
 centralize colors?
 - Will probably need a script for resetting color values in files if I do this...
 
