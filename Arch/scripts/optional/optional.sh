@@ -7,4 +7,4 @@ yay -S dropbox
 pacman -S --needed node-lts-iron npm ripgrep
 yay -S neovim-git
 
-pacman -S --needed tmux
+yay -S tmux-bash-completion-git 
