@@ -38,14 +38,10 @@ rclone
 - Google drive
 
 list user installed programs? versions?
-- Rust, neovim, tmux, etc. etc.
+- Everything in the config file? Seperate installation scripts? Even more abstraction?!?!
 
 centralize colors?
 - Will probably need a script for resetting color values in files if I do this...
-
-Drive encryption
-- personal and work data partitions...
-- rsync?
 
 Most recent git repo clones?
 - Will probably want to do this in a cool way
