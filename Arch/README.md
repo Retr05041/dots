@@ -24,6 +24,8 @@
 remember /etc/host(s) -> 127.0.0.1 localhost -> ::1 localhost -> 127.0.0.1 hostname
 
 On full run with base system, here are errors:
+- AUR needs to be setup on init run
+- ALL `yay` command need to be done with flags: `-S --noconfirm --needed`
 - No .config folder at ~
 - Setting wallpaper failed due to ./configs/core/conf/lightdm-mini-greeter & ./configs/core/config/i3/config being invalid paths
 - On reboot after -a 'tmux' command not found gets sent
