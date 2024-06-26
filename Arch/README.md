@@ -16,6 +16,9 @@
 - Audio = Pipewire
 - Additional packages = intel/amd-ucode e2fsprogs sof-firmware networkmanager vim man-db man-pages
 - Network configuration = Use Networkmanager
+ 
+## Post-install
+`besmart.sh -a`
 
 ### Notes
 remember /etc/host(s) -> 127.0.0.1 localhost -> ::1 localhost -> 127.0.0.1 hostname
@@ -26,11 +29,11 @@ On full run with base system, here are errors:
 - On reboot after -a 'tmux' command not found gets sent
 - I don't believe lightdm.service gets enabled automatically...
 - yay doesn't get installed and consequentially other yay dependant programs don't get installed - Yay packages also are having problems installing automatically
- 
-## Post-install
-`besmart.sh -a`
 
 # TODO (Post-install)
+asdf
+- runtime version manager
+
 rclone
 - Google drive
 
