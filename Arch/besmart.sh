@@ -83,6 +83,7 @@ core () {
     echo_color GREEN "--- DONE ---"
     echo_color YELLOW "--- LINKING CORE CONFIGS ---"
     link_core
+    set_fonts
     echo_color GREEN "--- DONE ---"
     echo_color YELLOW "--- SOURCING BASH ---"
     source_bash
