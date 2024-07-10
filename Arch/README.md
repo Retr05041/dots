@@ -23,17 +23,22 @@
 ### Notes
 remember /etc/host(s) -> 127.0.0.1 localhost -> ::1 localhost -> 127.0.0.1 hostname
 
-On full run with base system, here are errors:
+On full run with base system, here are errors: - these need developing changes
+- YAY MIGHT BE BREAKING IF RAN AS ROOT -- Put all yay installs into their own yay_x.sh files then when running them dont use sudo
 - AUR needs to be setup on init run
 - All `yay` commands need to be done with flags: `-S --noconfirm --needed`
-- No .config folder at ~
-- Setting wallpaper failed due to ./configs/core/conf/lightdm-mini-greeter & ./configs/core/config/i3/config being invalid paths
+- Setting wallpaper failed due to ./configs/core/conf/lightdm-mini-greeter & ./configs/core/config/i3/config being invalid paths (./configs/special/light... & ./configs/core/i3...)
 - On reboot after -a 'tmux' command not found gets sent
 - I don't believe lightdm.service gets enabled automatically...
-- yay doesn't get installed and consequentially other yay dependant programs don't get installed - Yay packages also are having problems installing automatically
-- Quadruple check all dependancies are met...
+- lightdm-mini-greeter is dieing.. lightdm-gtk-greeter seems to allow me to sign into my desktop.. 
 
 # TODO (Post-install)
+AUR installer script (standalone)
+
+Remove xorg-server install from scripts/core/core.sh (if installed through profile during archinstall)
+
+Split mybashrc into core and optional lol
+
 asdf
 - runtime version manager
 
