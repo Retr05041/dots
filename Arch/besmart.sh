@@ -4,10 +4,23 @@ source scripts/utils/bashlib.sh
 colors
 
 if ! [[ $(command -v yq) ]]; then
-    echo "yml parser not found - install latest version of yq?"
-    read -p "TOML parser not found - install latest version of 'yq'? [y/n]: " response
+    read -p "YAML parser (yq) not found - install latest version of 'yq'? [y/n]: " response
     if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
         sudo pacman --needed --noconfirm -S go-yq       
+    else
+        echo "Ok, goodbye!"
+        exit 1
+    fi
+fi
+
+if ! [[ $(command -v yay) ]]; then
+    read -p "AUR not found - install latest version? [y/n]: " response
+    if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
+        git clone https://aur.archlinux.org/yay.git
+        cd yay
+        makepkg -si
+        cd ..
+        rm -rf ./yay/
     else
         echo "Ok, goodbye!"
         exit 1
@@ -35,8 +48,7 @@ set_wallpaper () {
     echo "- MIGRATING IMAGES -"
     sudo cp -a ../wallpapers/. $(yq '.Base.wallpaperPath' settings.yml)
     echo "- SETTING NEW WALLPAPER VALUE -"
-    python3 ./scripts/utils/confEditer.py ./configs/core/conf/lightdm-mini-greeter.conf background-image "\"/usr/share/wallpapers/$(yq '.Base.wallpaperName' settings.yml)\""
-    python3 ./scripts/utils/alwaysExecEditer.py ./configs/core/config/i3/config "feh --bg-fill" /usr/share/wallpapers/$(yq '.Base.wallpaperName' settings.yml)
+    python3 ./scripts/utils/alwaysExecEditer.py ./configs/core/i3/config "feh --bg-fill" /usr/share/wallpapers/$(yq '.Base.wallpaperName' settings.yml)
 }
 
 change_wallpaper () {
@@ -65,6 +77,7 @@ explicit_neovim () {
 core () {
     echo_color YELLOW "--- INSTALLING CORE PACKAGES ---"
     sudo ./scripts/core/core.sh
+    ./scripts/core/yay_core.sh
     ./scripts/core/setup_audio.sh
     sudo ./scripts/core/setup_bluetooth.sh
     echo_color GREEN "--- DONE ---"
@@ -95,6 +108,7 @@ link_core () {
 optional () {
     echo_color YELLOW "--- INSTALLING OPTIONAL PACKAGES ---"
     sudo ./scripts/optional/optional.sh
+    ./scripts/optional/yay_optional.sh
     echo_color GREEN "--- DONE ---"
     echo_color YELLOW "--- LINKING OPTIONAL CONFIGS ---"
 
