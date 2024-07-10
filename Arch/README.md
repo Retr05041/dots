@@ -33,6 +33,7 @@ On full run with base system, here are errors: - these need developing changes
 - Can't use dmenu or type in wezterm... might be a vm thing
 - Remove alias cd from .mybashrc - meant for .myoptionalbashrc -- this is causing an annoying cd headache
 - Something is wrong with lightdm.. think I will need to do tests on a laptop to really figure it out
+- node-lts-iron == nodejs-lts-iron
 
 # TODO (Post-install)
 All optional installs need their own file..
