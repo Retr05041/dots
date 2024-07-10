@@ -29,7 +29,7 @@ remember /etc/host(s) -> 127.0.0.1 localhost -> ::1 localhost -> 127.0.0.1 hostn
 
 On full run with base system, here are errors: - these need developing changes
 - I don't believe lightdm.service gets enabled automatically...
-- Hack Nerd Font dies...
+- Hack Nerd Font dies... - NOT BEING CALLED EVER
 - Can't use dmenu or type in wezterm... might be a vm thing
 - Remove alias cd from .mybashrc - meant for .myoptionalbashrc -- this is causing an annoying cd headache
 - Something is wrong with lightdm.. think I will need to do tests on a laptop to really figure it out
