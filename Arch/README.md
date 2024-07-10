@@ -20,11 +20,19 @@
 ## Post-install
 `besmart.sh -a`
 
+`systemctl enable lightdm.service`
+
+`sudo reboot now`
+
 ### Notes
 remember /etc/host(s) -> 127.0.0.1 localhost -> ::1 localhost -> 127.0.0.1 hostname
 
 On full run with base system, here are errors: - these need developing changes
 - I don't believe lightdm.service gets enabled automatically...
+- Hack Nerd Font dies...
+- Can't use dmenu or type in wezterm... might be a vm thing
+- Remove alias cd from .mybashrc - meant for .myoptionalbashrc -- this is causing an annoying cd headache
+- Something is wrong with lightdm.. think I will need to do tests on a laptop to really figure it out
 
 # TODO (Post-install)
 All optional installs need their own file..
