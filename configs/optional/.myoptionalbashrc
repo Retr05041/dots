@@ -1,0 +1,11 @@
+eval "$(zoxide init bash)"
+
+alias cd="z"
+
+if [[ -z "$TMUX" ]]; then
+    tmux has-session -t main
+    if [[ $? != 0 ]]; then
+        tmux new-session -s main
+    fi
+    tmux attach -t main
+fi

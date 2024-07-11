@@ -1,0 +1,24 @@
+# comment
+# snippit <trigger> <description>
+# <snippet-body>
+
+snippet #!
+	#!/bin/bash
+
+snippet #flagcatch
+	if [[ $# == 0 ]]; then
+	    $0 -h
+	fi
+	
+	while [[ $# -gt 0 ]]; do
+	    case "$1" in
+	        -h | --help)
+	            echo "Help section"
+	            shift 1
+	            ;;
+	        *)
+	            echo "Unknown flag: $1"
+	            echo "$(basename $0) [-h | --help]"
+	            ;;
+	    esac 
+	done
