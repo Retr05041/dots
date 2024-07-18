@@ -1,8 +1,0 @@
-Base:
-  wallpaperPath: /usr/share/wallpapers
-  wallpaperName: interstellarArt.jpg
-  fontPath: /home/parker/.local/share/fonts/
-Core:
-  core: true
-Optional:
-  optional: true
