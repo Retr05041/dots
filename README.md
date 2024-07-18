@@ -28,6 +28,14 @@
 On full run with base system, here are errors: - these need developing changes
 - I don't believe lightdm.service gets enabled automatically. Need to decide if I want this to be automated
 
+#### External Monitor
+`mons` - Lists connected monitors
+
+`mons -e right` - Extends display to the right
+
+`xrandr --output {EXTERNAL-DISPLAY} --mode 1920x1080` - changes the resolution
+
+
 # TODO (Post-install)
 All optional installs need their own file..
 
