@@ -1,3 +1,3 @@
 #!/bin/bash
 
-yay -S --noconfirm --needed lightdm-mini-greeter i3lock-color mons
+yay -S --noconfirm --needed lightdm-mini-greeter i3lock-color 

@@ -100,6 +100,9 @@ link_core () {
     sudo cp -lf configs/special/lightdm.conf /etc/lightdm/
     sudo cp -lf configs/special/lightdm-mini-greeter.conf /etc/lightdm
 
+    echo "-- MONITOR LINKS --"
+    sudo cp -lf conifgs/special/10-monitor.conf /etc/X11/xorg.conf.d
+
     # .config files/folders
     echo "-- DOTFILE LINKS --"
     cp -lfr ./configs/core/* $HOME/.config/
