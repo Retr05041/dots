@@ -41,7 +41,12 @@ set_fonts () {
 
 source_bash () {
     echo "- SOURCING BASH -"
-    python ./scripts/utils/sourcebash.py $HOME
+    python ./scripts/utils/sourceCoreBash.py $HOME
+}
+
+source_optional_bash () {
+    echo "- SOURCING OPTIONAL BASH -"
+    python ./scripts/utils/sourceOpBash.py $HOME
 }
 
 set_wallpaper () { 
@@ -101,7 +106,7 @@ link_core () {
     sudo cp -lf configs/special/lightdm-mini-greeter.conf /etc/lightdm
 
     echo "-- MONITOR LINKS --"
-    sudo cp -lf conifgs/special/10-monitor.conf /etc/X11/xorg.conf.d
+    sudo cp -lf configs/special/10-monitor.conf /etc/X11/xorg.conf.d
 
     # .config files/folders
     echo "-- DOTFILE LINKS --"
@@ -115,15 +120,17 @@ optional () {
     ./scripts/optional/yay_optional.sh
     echo_color GREEN "--- DONE ---"
     echo_color YELLOW "--- LINKING OPTIONAL CONFIGS ---"
-
     link_optional
-        
+    echo_color YELLOW "--- SOURCING OPTIONAL BASH ---"
+    source_optional_bash
+    echo_color GREEN "--- DONE ---"
     yq -i '.Optional.optional=true' settings.yml 
 }
 
 link_optional () {
     echo "-- DOTEFILE LINKS --"
     cp -lfr ./configs/optional/* $HOME/.config/
+    cp -lfr ./configs/optional/.* $HOME/.config/
 }
 
 link () {
