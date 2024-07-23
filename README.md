@@ -31,10 +31,6 @@ On full run with base system, here are errors: - these need developing changes
 # TODO (Post-install)
 All optional installs need their own file..
 
-Configure greeter, seems the mini one is borked
-
-Write .myoptionalbashrc script and add functionality to the source bash file to allow for this as well
-
 Rewrite python scritps in Go? (use this link to get args and read config files... https://elewis.dev/charming-cobras-with-bubbletea-part-1)
 - Could then add more support for editing configs on the fly...
     - Need to do this for ease of changing configs for: monitor, wallpaper..

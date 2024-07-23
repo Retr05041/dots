@@ -54,6 +54,7 @@ set_wallpaper () {
     sudo cp -a ./wallpapers/. $(yq '.Base.wallpaperPath' settings.yml)
     echo "- SETTING NEW WALLPAPER VALUE -"
     python3 ./scripts/utils/alwaysExecEditer.py ./configs/core/i3/config "feh --bg-fill" /usr/share/wallpapers/$(yq '.Base.wallpaperName' settings.yml)
+    python3 ./scripts/utils/confEditer.py ./configs/special/slick-greeter.conf background /usr/share/wallpapers/$(yq '.Base.wallpaperName' settings.yml)
 }
 
 change_wallpaper () {
@@ -103,7 +104,7 @@ core () {
 link_core () {
     echo "-- LIGHTDM LINKS --"
     sudo cp -lf configs/special/lightdm.conf /etc/lightdm/
-    sudo cp -lf configs/special/lightdm-mini-greeter.conf /etc/lightdm
+    sudo cp -lf configs/special/slick-greeter.conf /etc/lightdm
 
     echo "-- MONITOR LINKS --"
     sudo cp -lf configs/special/10-monitor.conf /etc/X11/xorg.conf.d
