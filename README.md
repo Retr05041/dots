@@ -53,3 +53,5 @@ centralize colors?
 
 Most recent git repo clones?
 - Will probably want to do this in a cool way
+
+Japanse UTF-8 font to see the smile emoticon
