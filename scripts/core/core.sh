@@ -4,7 +4,7 @@ echo "-- INSTALLING PACKAGES --"
 pacman -S --needed --noconfirm base-devel wezterm dmenu i3-wm polybar lightdm lightdm-slick-greeter xclip xorg-xrandr
 
 # Sound + Transparency + battery
-pacman -S --needed --noconfirm alsa-utils picom acpi spotify-launcher
+pacman -S --needed --noconfirm alsa-utils picom acpi spotify-launcher pavucontrl
 
 # Bluetooth
 pacman -S --needed --noconfirm bluez bluez-utils 
