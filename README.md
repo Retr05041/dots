@@ -47,15 +47,6 @@ asdf
 rclone
 - Google drive
 
-list user installed programs? versions?
-- Everything in the config file? Seperate installation scripts? Even more abstraction?!?!
-
-centralize colors?
-- Will probably need a script for resetting color values in files if I do this...
-
-Most recent git repo clones?
-- Will probably want to do this in a cool way
-
 Japanse UTF-8 font to see the smile emoticon
 
 External Monitor needs fixing - Might be a Framework issue
