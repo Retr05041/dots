@@ -31,13 +31,15 @@ On full run with base system, here are errors: - these need developing changes
 # TODO (Post-install)
 All optional installs need their own file..
 
+Learn Submodules (use for neovim... will be usefull in other projects) - https://git-scm.com/book/en/v2/Git-Tools-Submodules
+
 Rewrite python scritps in Go? (use this link to get args and read config files... https://elewis.dev/charming-cobras-with-bubbletea-part-1)
 - Could then add more support for editing configs on the fly...
     - Need to do this for ease of changing configs for: monitor, wallpaper..
     - Bubbletea TUI?!
 - Could elimenate the need for bash... would need a make file to get the go interpreter...
 
-Optimizations?
+Optimizations? - Battery
 
 asdf
 - runtime version manager
@@ -55,3 +57,5 @@ Most recent git repo clones?
 - Will probably want to do this in a cool way
 
 Japanse UTF-8 font to see the smile emoticon
+
+External Monitor needs fixing - Might be a Framework issue

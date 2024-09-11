@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Wifi
-if [[ $(nmcli -t -f DEVICE,STATE dev | grep -P '^(wlan|wlp[0-9][0-9]s)[0-9]*:connected$') ]]; then 
+if [[ $(nmcli -t -f DEVICE,STATE dev | grep -P '^(wlan|wlp[0-9]s)[0-9]*:connected$') ]]; then 
     WIFI="%{F#00cc00}%{F-}"
 else
     WIFI="%{F#ff0000}%{F-}"
