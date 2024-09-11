@@ -8,7 +8,7 @@ else
 fi
 
 # Ethernet
-if [[ $(nmcli -t -f DEVICE,STATE dev | grep -P '^(eth|enp[0-9]s([0-9][0-9]f)?)[0-9]*:connected$') ]]; then 
+if [[ $(nmcli -t -f DEVICE,STATE dev | grep -P '^(eth|enp[0-9]*s)([0-9]*f)?([0-9]*u)?[0-9]*:connected$') ]]; then 
     ETHERNET="%{F#00cc00}%{F-}"
 else
     ETHERNET="%{F#ff0000}%{F-}"
