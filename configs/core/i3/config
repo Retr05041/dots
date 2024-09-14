@@ -209,7 +209,7 @@ exec_always dropbox
 exec_always picom -f 
 exec_always flameshot
 exec_always xrandr --output eDP --scale 0.65x0.65
-exec_always xrandr --output DisplayPort-1 --scale 1x1
+exec_always xrandr --output DisplayPort-1 --scale 0.65x0.65
 
 # Custom keybinds
 bindsym $mod+x exec /home/$USER/.config/scripts/lock.sh
