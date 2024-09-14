@@ -48,5 +48,3 @@ rclone
 - Google drive
 
 Japanse UTF-8 font to see the smile emoticon
-
-External Monitor needs fixing - Might be a Framework issue

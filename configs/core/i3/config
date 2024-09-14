@@ -208,7 +208,8 @@ exec_always feh --bg-fill /usr/share/wallpapers/firewatch.jpg
 exec_always dropbox
 exec_always picom -f 
 exec_always flameshot
-exec_always xrandr --output eDP --scale 0.6x0.6
+exec_always xrandr --output eDP --scale 0.65x0.65
+exec_always xrandr --output DisplayPort-1 --scale 1x1
 
 # Custom keybinds
 bindsym $mod+x exec /home/$USER/.config/scripts/lock.sh
