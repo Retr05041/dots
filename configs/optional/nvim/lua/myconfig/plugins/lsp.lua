@@ -34,6 +34,8 @@ return {
                 "rust_analyzer",
                 "taplo", -- TOML
                 "clangd",
+                "hls",
+                "texlab",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
